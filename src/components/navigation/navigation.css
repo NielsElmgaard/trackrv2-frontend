@@ -1,0 +1,21 @@
+/* Navigation */
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.main-nav a:hover {
+  text-decoration: underline;
+}
+
+.main-nav a.active {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
