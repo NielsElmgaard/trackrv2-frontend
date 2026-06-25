@@ -5,7 +5,7 @@ import babel from "@rolldown/plugin-babel";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    base: mode === "production" ? "/TrackrV2/" : "/", // '/' for local dev
+    base: mode === "production" ? "/trackrv2-frontend/" : "/", // '/' for local dev
 
     plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
 
