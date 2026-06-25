@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Navigation from "../navigation/navigation.jsx";
-import "./header.css";
+import "./Header.css";
 
 function Header({ onLogout, isLoggedIn }) {
   return (
