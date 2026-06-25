@@ -1,4 +1,6 @@
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 
 import "./App.css";
 import Login from "./components/login/login.jsx";
@@ -15,6 +17,8 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const refreshPromiseRef = useRef(null);
+
+  const queryClient = new QueryClient();
 
   const refreshAccessToken = useCallback(async () => {
     if (refreshPromiseRef.current) {
@@ -94,6 +98,7 @@ function App() {
 
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <HashRouter>
         <div className="app-container">
           <main className="content">
@@ -135,6 +140,7 @@ function App() {
           </main>
         </div>
       </HashRouter>
+      </QueryClientProvider>
     </>
   );
 }
