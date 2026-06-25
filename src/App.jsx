@@ -1,6 +1,6 @@
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { setTokenInMemory } from "./utils.js";
 
 import "./App.css";
 import Login from "./components/login/login.jsx";
@@ -9,6 +9,7 @@ import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
 import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
 import { useCallback, useEffect, useState, useRef } from "react";
+const queryClient = new QueryClient();
 
 function App() {
   const [error, setError] = useState("");
@@ -17,8 +18,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const refreshPromiseRef = useRef(null);
-
-  const queryClient = new QueryClient();
 
   const refreshAccessToken = useCallback(async () => {
     if (refreshPromiseRef.current) {
@@ -49,6 +48,7 @@ function App() {
           if (authHeader && authHeader.startsWith("Bearer ")) {
             const token = authHeader.substring(7);
             setAccessToken(token);
+            setTokenInMemory(token);
             return token;
           }
         }
@@ -59,6 +59,7 @@ function App() {
       }
 
       setAccessToken(null);
+      setTokenInMemory(null);
       return null;
     };
     refreshPromiseRef.current = runRefresh();
@@ -83,9 +84,15 @@ function App() {
       console.error("Fejl under logout:", error);
     } finally {
       setAccessToken(null);
+      setTokenInMemory(null);
       localStorage.removeItem("username");
     }
   }
+
+  const handleLoginSuccess = (token) => {
+    setAccessToken(token);
+    setTokenInMemory(token);
+  };
 
   // Logged in
   const isLoggedIn = !!accessToken;
@@ -98,48 +105,48 @@ function App() {
 
   return (
     <>
-    <QueryClientProvider client={queryClient}>
-      <HashRouter>
-        <div className="app-container">
-          <main className="content">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  isLoggedIn ? (
-                    <Navigate to="/Home" />
-                  ) : (
-                    <Login setAccessToken={setAccessToken} />
-                  )
-                }
-              />
-
-              <Route element={<ProtectedRoute accessToken={accessToken} />}>
+      <QueryClientProvider client={queryClient}>
+        <HashRouter>
+          <div className="app-container">
+            <main className="content">
+              <Routes>
                 <Route
-                  path="/Home"
+                  path="/"
                   element={
-                    <HomeScreen
-                      onLogout={handleLogout}
-                      accessToken={accessToken}
-                    />
+                    isLoggedIn ? (
+                      <Navigate to="/Home" />
+                    ) : (
+                      <Login setAccessToken={handleLoginSuccess} />
+                    )
                   }
                 />
-                <Route
-                  path="/Trackers"
-                  element={
-                    <TrackersScreen
-                      onLogout={handleLogout}
-                      accessToken={accessToken}
-                    />
-                  }
-                />
-              </Route>
 
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </main>
-        </div>
-      </HashRouter>
+                <Route element={<ProtectedRoute accessToken={accessToken} />}>
+                  <Route
+                    path="/Home"
+                    element={
+                      <HomeScreen
+                        onLogout={handleLogout}
+                        accessToken={accessToken}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/Trackers"
+                    element={
+                      <TrackersScreen
+                        onLogout={handleLogout}
+                        accessToken={accessToken}
+                      />
+                    }
+                  />
+                </Route>
+
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </main>
+          </div>
+        </HashRouter>
       </QueryClientProvider>
     </>
   );
