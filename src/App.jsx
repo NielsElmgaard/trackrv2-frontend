@@ -1,6 +1,7 @@
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setTokenInMemory } from "./utils.js";
+import Header from "./components/header/Header.jsx";
 
 import "./App.css";
 import Login from "./components/login/login.jsx";
@@ -18,6 +19,7 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const refreshPromiseRef = useRef(null);
+  const loggedOutRef = useRef(false);
 
   const refreshAccessToken = useCallback(async () => {
     if (refreshPromiseRef.current) {
@@ -52,10 +54,12 @@ function App() {
         );
         if (response.ok) {
           const authHeader = response.headers.get("Authorization");
-          if (authHeader && authHeader.startsWith("Bearer ")) {
+          if (authHeader?.startsWith("Bearer ")) {
             const token = authHeader.substring(7);
-            setAccessToken(token);
-            setTokenInMemory(token);
+            if (!loggedOutRef.current) {
+              setAccessToken(token);
+              setTokenInMemory(token);
+            }
             return token;
           }
         }
@@ -84,6 +88,7 @@ function App() {
   }, [refreshAccessToken]);
 
   async function handleLogout() {
+    loggedOutRef.current = true;
     try {
       await fetch("https://trackrv2-api.onrender.com/api/v1/auth/logout", {
         method: "POST",
@@ -101,6 +106,7 @@ function App() {
   const handleLoginSuccess = (token) => {
     setAccessToken(token);
     setTokenInMemory(token);
+    loggedOutRef.current = false;
   };
 
   // Logged in
@@ -117,6 +123,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <HashRouter>
           <div className="app-container">
+            <Header onLogout={handleLogout} isLoggedIn={isLoggedIn} />
             <main className="content">
               <Routes>
                 <Route
