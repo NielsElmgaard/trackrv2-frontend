@@ -24,8 +24,15 @@ function App() {
       return refreshPromiseRef.current;
     }
     const runRefresh = async () => {
+      const savedUsername = localStorage.getItem("username");
+
+      if (!savedUsername) {
+        setAccessToken(null);
+        setTokenInMemory(null);
+        return null;
+      }
+
       try {
-        const savedUsername = localStorage.getItem("username");
         const username = savedUsername ? JSON.parse(savedUsername) : "";
 
         const response = await fetch(
@@ -62,7 +69,9 @@ function App() {
       setTokenInMemory(null);
       return null;
     };
+
     refreshPromiseRef.current = runRefresh();
+
     return refreshPromiseRef.current;
   }, []);
 
