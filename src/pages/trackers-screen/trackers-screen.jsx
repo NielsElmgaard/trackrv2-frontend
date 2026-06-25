@@ -1,7 +1,7 @@
 import useFetchTrackers from "../../hooks/useFetchTrackers.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
-import { axiosInstance } from "./utils.js";
+import { axiosInstance } from "../../utils.js";
 
 function TrackersScreen({ onLogout, selectedTracker }) {
   const [search, setSearch] = useState("");
