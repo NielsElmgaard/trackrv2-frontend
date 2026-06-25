@@ -5,7 +5,9 @@ import "./header.css";
 function Header({ onLogout, isLoggedIn }) {
   return (
     <header className="site-header">
-      <div className="logo">TrackrV2</div>
+      <Link to="/" className="logo">
+        TrackrV2
+      </Link>
       {isLoggedIn && <Navigation onLogout={onLogout} />}
     </header>
   );

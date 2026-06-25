@@ -142,7 +142,6 @@ function App() {
                     path="/Home"
                     element={
                       <HomeScreen
-                        onLogout={handleLogout}
                         accessToken={accessToken}
                       />
                     }
@@ -151,7 +150,6 @@ function App() {
                     path="/Trackers"
                     element={
                       <TrackersScreen
-                        onLogout={handleLogout}
                         accessToken={accessToken}
                       />
                     }

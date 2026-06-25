@@ -1,4 +1,4 @@
-function HomeScreen({onLogout}) {
+function HomeScreen() {
     const username = JSON.parse(localStorage.getItem("username"));
     return (
         <>

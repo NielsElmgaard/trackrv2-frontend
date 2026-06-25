@@ -6,30 +6,33 @@ function Navigation({ onLogout }) {
 
   return (
     <>
-      <h3>Hello, {username}!</h3>
-      <div className="logout-button">
-        <button onClick={onLogout}>Log ud</button>
+      <div className="nav-wrapper">
+        <nav className="main-nav">
+          <ul>
+            <li>
+              <NavLink
+                to="/Home"
+                end
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/Trackers"
+                end
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Trackers
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <h3>Hello, {username}!</h3>
+
+        <button className="logout-button" onClick={onLogout}>
+          Log ud
+        </button>
       </div>
-      <nav className="main-nav">
-        <ul>
-          <li>
-            <NavLink
-              to="/Home"
-              end
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              Home
-            </NavLink>
-            <NavLink
-              to="/Trackers"
-              end
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              Trackers
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
     </>
   );
 }

@@ -1,15 +1,15 @@
 /* Header */
 .site-header {
-  background-color: #4f5080;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: var(--text);
+  background-color: var(--bg);
 }
 
 .logo {
-  color: white;
+  color: var(--accent);
   font-size: 1.5rem;
   font-weight: bold;
 }

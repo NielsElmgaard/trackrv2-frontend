@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
 
-function TrackersScreen({ onLogout, selectedTracker }) {
+function TrackersScreen({selectedTracker }) {
   const [search, setSearch] = useState("");
   const [goToPage, setGoToPage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,9 +64,6 @@ function TrackersScreen({ onLogout, selectedTracker }) {
   return (
     <>
       <div className="trackers-screen-container">
-        <div className="logout-button">
-          <button onClick={onLogout}>Log ud</button>
-        </div>
         <h1>Trackers</h1>
         <input
           type="text"
