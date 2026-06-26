@@ -1,11 +1,11 @@
-﻿.login-container {
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 50vh; /* Centrerer lodret på skærmen */
 }
 
-.login-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -18,19 +18,19 @@
   background-color: var(--bg);
 }
 
-.login-group {
+.signup-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.login-group label {
+.signup-group label {
   font-size: 14px;
   font-weight: 600;
   color: var(--text);  
 }
 
-.login-group input {
+.signup-group input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid var(--border);
@@ -41,11 +41,11 @@
   color: var(--text);
 }
 
-.login-group input:focus {
+.signup-group input:focus {
   border-color: var(--accent);
 }
 
-.login-form button {
+.signup-form button {
   padding: 12px;
   background-color: var(--accent);
   color: var(--bg);
@@ -58,7 +58,7 @@
   transition: opacity 0.2s;
 }
 
-.login-form button:hover {
+.signup-form button:hover {
   opacity: 0.8;
 }
 
@@ -68,22 +68,21 @@
   text-align: center;
 }
 
-.sign-up-link :link{
+.login-link :link{
   display: flex;
   flex-direction: column;
   margin-top: 15px;
   text-decoration: none;
-  text-align: right;
-  font-size: 14px;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
   
 }
 
-.sign-up-link span{
+.login-link span{
   color: var(--accent);
 }
 
-.sign-up-link :hover{
+.login-link span:hover{
   color: var(--accent-bg);
 }

@@ -9,6 +9,7 @@ function Login({ setAccessToken }) {
   });
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +27,8 @@ function Login({ setAccessToken }) {
       setError("Indtast venligst et gyldigt brugernavn og password");
       return;
     }
+
+    setIsLoggingIn(true);
 
     try {
       const response = await fetch(
@@ -59,6 +62,8 @@ function Login({ setAccessToken }) {
       setError(
         `${error.message || error} - Kunne ikke oprette forbindelse til serveren.`,
       );
+    } finally {
+      setIsLoggingIn(false);
     }
   }
 
@@ -74,6 +79,7 @@ function Login({ setAccessToken }) {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Indtast brugernavn"
+              disabled={isLoggingIn}
             />
           </div>
           <div className="login-group">
@@ -84,14 +90,20 @@ function Login({ setAccessToken }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Indtast adgangskode"
+              disabled={isLoggingIn}
             />
           </div>
-          <div className="sign-up">
-            <Link to="/signup">Ny bruger</Link>
-          </div>
 
-          <button type="submit">Log ind</button>
+          <button type="submit" disabled={isLoggingIn}>
+            {isLoggingIn ? "Vent venligst..." : "Log ind"}
+          </button>
           {error && <div className="error-message">{error}</div>}
+
+          <div className="sign-up-link">
+            <Link to="/signup">
+              <span>Opret bruger</span>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
