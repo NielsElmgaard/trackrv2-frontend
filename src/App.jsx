@@ -4,8 +4,9 @@ import { setTokenInMemory } from "./utils.js";
 import Header from "./components/header/Header.jsx";
 
 import "./App.css";
-import Login from "./components/login/login.jsx";
+import Login from "./pages/login/login.jsx";
 import HomeScreen from "./pages/home-screen/home-screen.jsx";
+import SignUpScreen from "./pages/sign-up-screen/SignUpScreen.jsx";
 import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
 import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
@@ -136,23 +137,21 @@ function App() {
                     )
                   }
                 />
+                <Route
+                  path="/signup"
+                  element={
+                    isLoggedIn ? <Navigate to="/Home" /> : <SignUpScreen />
+                  }
+                />
 
                 <Route element={<ProtectedRoute accessToken={accessToken} />}>
                   <Route
                     path="/Home"
-                    element={
-                      <HomeScreen
-                        accessToken={accessToken}
-                      />
-                    }
+                    element={<HomeScreen accessToken={accessToken} />}
                   />
                   <Route
                     path="/Trackers"
-                    element={
-                      <TrackersScreen
-                        accessToken={accessToken}
-                      />
-                    }
+                    element={<TrackersScreen accessToken={accessToken} />}
                   />
                 </Route>
 
