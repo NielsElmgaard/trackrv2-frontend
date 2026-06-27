@@ -24,6 +24,13 @@ function Navigation({ onLogout }) {
               >
                 Trackers
               </NavLink>
+              <NavLink
+                to="/Settings"
+                end
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Settings
+              </NavLink>
             </li>
           </ul>
         </nav>

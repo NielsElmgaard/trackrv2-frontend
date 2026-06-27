@@ -8,6 +8,8 @@ import Login from "./pages/login/login.jsx";
 import HomeScreen from "./pages/home-screen/home-screen.jsx";
 import SignUpScreen from "./pages/sign-up-screen/SignUpScreen.jsx";
 import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
+import SettingsScreen from "./pages/settings-screen/SettingsScreen.jsx";
+
 import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
 import { useCallback, useEffect, useState, useRef } from "react";
@@ -154,6 +156,10 @@ function App() {
                     element={<TrackersScreen accessToken={accessToken} />}
                   />
                 </Route>
+                 <Route
+                    path="/Settings"
+                    element={<SettingsScreen accessToken={accessToken} />}
+                  />
 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
