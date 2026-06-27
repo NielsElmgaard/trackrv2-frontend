@@ -1,8 +1,10 @@
 .update-userinfo-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 50vh; /* Centrerer lodret på skærmen */
+  gap: 12px;
 }
 
 .update-userinfo-form {
@@ -109,7 +111,7 @@
   border-color: var(--accent);
 }
 
-.update-userinfo-form button {
+.change-password-form button {
   padding: 12px;
   background-color: var(--accent);
   color: var(--bg);

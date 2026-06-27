@@ -64,7 +64,7 @@ function TrackersScreen({selectedTracker }) {
   return (
     <>
       <div className="trackers-screen-container">
-        <h1>Trackers</h1>
+        <h1>Trackere</h1>
         <input
           type="text"
           placeholder="Søg efter tracker..."

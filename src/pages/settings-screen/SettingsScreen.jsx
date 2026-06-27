@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./SettingsScreen.css";
 import { useNavigate, Link } from "react-router-dom";
 import useFetchUser from "../../hooks/useFetchUser.js";
+import { axiosInstance } from "../../utils.js";
 
 function SettingsScreen() {
   const { isPending, data: userDetails, fetchError } = useFetchUser();
@@ -13,7 +14,8 @@ function SettingsScreen() {
   const [nationality, setNationality] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingProfile, setIsSubmittingProfile] = useState(false);
+  const [isSubmittingPassword, setIsSubmittingPassword] = useState(false);
   const [profileInfo, setProfileInfo] = useState("");
   const [profileError, setProfileError] = useState("");
   const [passwordInfo, setPasswordInfo] = useState("");
@@ -24,7 +26,7 @@ function SettingsScreen() {
   useEffect(() => {
     if (userDetails) {
       setUsername(userDetails.username || "");
-      setFirstName(userDetails.firstName || "fejl");
+      setFirstName(userDetails.firstName || "");
       setMiddleName(userDetails.middleName || "");
       setLastName(userDetails.lastName || "");
       setNationality(userDetails.nationality || "");
@@ -43,43 +45,28 @@ function SettingsScreen() {
       );
       return;
     }
-    setIsSubmitting(true);
+    setIsSubmittingProfile(true);
 
     try {
-      const response = await fetch(
-        "https://trackrv2-api.onrender.com/api/v1/users",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: username.trim(),
-            firstName: firstName.trim(),
-            middleName: middleName.trim(),
-            lastName: lastName.trim(),
-            nationality: nationality.trim(),
-            email: email.trim(),
-            phoneNumber: phoneNumber,
-          }),
-        },
-      );
+      const response = await axiosInstance.put("/v1/users", {
+        username: username.trim(),
+        firstName: firstName.trim(),
+        middleName: middleName.trim(),
+        lastName: lastName.trim(),
+        nationality: nationality.trim(),
+        email: email.trim(),
+        phoneNumber: phoneNumber,
+      });
 
-      if (response.ok) {
-        setProfileInfo("Profil opdateret succesfuldt!");
-      } else {
-        const errorData = await response.json();
-        const errorMessage =
-          errorData.detail ||
-          "En fejl skete under opdatering af brugeroplysninger.";
-        setProfileError(errorMessage);
-        setProfileInfo("");
-      }
+      setProfileInfo("Profil opdateret succesfuldt!");
     } catch (error) {
-      setProfileError(
-        `${error.message || error} - Kunne ikke oprette forbindelse til serveren.`,
-      );
+      const errorMessage =
+        error.response?.data?.detail ||
+        "En fejl skete under opdatering af brugeroplysninger.";
+      setProfileError(errorMessage);
       setProfileInfo("");
     } finally {
-      setIsSubmitting(false);
+      setIsSubmittingProfile(false);
     }
   }
 
@@ -91,37 +78,22 @@ function SettingsScreen() {
       setPasswordError("Indtast venligst adgangskode");
       return;
     }
-    setIsSubmitting(true);
+    setIsSubmittingPassword(true);
 
     try {
-      const response = await fetch(
-        "https://trackrv2-api.onrender.com/api/v1/users/password",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            password: password.trim(),
-          }),
-        },
-      );
+      const response = await axiosInstance.put("/v1/users/password", {
+        password: password.trim(),
+      });
 
-      if (response.ok) {
-        setPasswordInfo("Adgangskode opdateret succesfuldt!");
-      } else {
-        const errorData = await response.json();
-        const errorMessage =
-          errorData.detail ||
-          "En fejl skete under opdatering af brugers adgangskode.";
-        setPasswordError(errorMessage);
-        setPasswordInfo("");
-      }
+      setPasswordInfo("Adgangskode opdateret succesfuldt!");
     } catch (error) {
-      setPasswordError(
-        `${error.message || error} - Kunne ikke oprette forbindelse til serveren.`,
-      );
+      const errorMessage =
+        error.response?.data?.detail ||
+        "En fejl skete under opdatering af brugers adgangskode.";
+      setPasswordError(errorMessage);
       setPasswordInfo("");
     } finally {
-      setIsSubmitting(false);
+      setIsSubmittingPassword(false);
     }
   }
   if (isPending)
@@ -142,7 +114,7 @@ function SettingsScreen() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Indtast brugernavn"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -153,7 +125,7 @@ function SettingsScreen() {
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="Indtast fornavn"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -164,7 +136,7 @@ function SettingsScreen() {
               value={middleName}
               onChange={(e) => setMiddleName(e.target.value)}
               placeholder="Indtast mellemnavn"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -175,7 +147,7 @@ function SettingsScreen() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Indtast efternavn"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -186,7 +158,7 @@ function SettingsScreen() {
               value={nationality}
               onChange={(e) => setNationality(e.target.value)}
               placeholder="Indtast nationalitet"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -197,7 +169,7 @@ function SettingsScreen() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Indtast e-mail"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
           <div className="update-userinfo-group">
@@ -211,12 +183,12 @@ function SettingsScreen() {
                 setPhoneNumber(eightDigits);
               }}
               placeholder="Indtast telefonnummer"
-              disabled={isSubmitting}
+              disabled={isSubmittingProfile}
             />
           </div>
 
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Vent venligst..." : "Opdatér bruger"}
+          <button type="submit" disabled={isSubmittingProfile}>
+            {isSubmittingProfile ? "Vent venligst..." : "Opdatér bruger"}
           </button>
           {profileInfo && <div className="info-message">{profileInfo}</div>}
           {profileError && <div className="error-message">{profileError}</div>}
@@ -232,12 +204,11 @@ function SettingsScreen() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Indtast ny adgangskode"
-              disabled={isSubmitting}
+              disabled={isSubmittingPassword}
             />
           </div>
-
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Vent venligst..." : "Opdatér adgangskode"}
+          <button type="submit" disabled={isSubmittingPassword}>
+            {isSubmittingPassword ? "Vent venligst..." : "Opdatér adgangskode"}
           </button>
           {passwordInfo && <div className="info-message">{passwordInfo}</div>}
           {passwordError && (

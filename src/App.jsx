@@ -155,11 +155,11 @@ function App() {
                     path="/Trackers"
                     element={<TrackersScreen accessToken={accessToken} />}
                   />
-                </Route>
-                 <Route
+                  <Route
                     path="/Settings"
                     element={<SettingsScreen accessToken={accessToken} />}
                   />
+                </Route>
 
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

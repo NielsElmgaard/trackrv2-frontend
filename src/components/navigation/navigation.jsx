@@ -10,31 +10,31 @@ function Navigation({ onLogout }) {
         <nav className="main-nav">
           <ul>
             <li>
-              <NavLink
+              {/*<NavLink
                 to="/Home"
                 end
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Home
-              </NavLink>
+                Hjem
+              </NavLink>*/}
               <NavLink
                 to="/Trackers"
                 end
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Trackers
+                Trackere
               </NavLink>
               <NavLink
                 to="/Settings"
                 end
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Settings
+                ProfilIndstillinger
               </NavLink>
             </li>
           </ul>
         </nav>
-        <h3>Hello, {username}!</h3>
+        <h3>Hej, {username}!</h3>
 
         <button className="logout-button" onClick={onLogout}>
           Log ud
