@@ -3,6 +3,8 @@ import "./SettingsScreen.css";
 import { useNavigate, Link } from "react-router-dom";
 import useFetchUser from "../../hooks/useFetchUser.js";
 import { axiosInstance } from "../../utils.js";
+import UpdateUserInfoForm from "../../components/forms/UpdateUserInfoForm.jsx";
+import ChangePasswordForm from "../../components/forms/ChangePasswordForm.jsx";
 
 function SettingsScreen() {
   const { isPending, data: userDetails, fetchError } = useFetchUser();
@@ -104,118 +106,34 @@ function SettingsScreen() {
     );
   return (
     <div className="update-userinfo-container">
-      <div className="update-userinfo-form">
-        <form onSubmit={handleUpdateUserInfo}>
-          <div className="update-userinfo-group">
-            <label htmlFor="username">Brugernavn</label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Indtast brugernavn"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="firstName">Fornavn</label>
-            <input
-              id="firstName"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              placeholder="Indtast fornavn"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="middleName">Mellemnavn</label>
-            <input
-              id="middleName"
-              type="text"
-              value={middleName}
-              onChange={(e) => setMiddleName(e.target.value)}
-              placeholder="Indtast mellemnavn"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="lastName">Efternavn</label>
-            <input
-              id="lastName"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              placeholder="Indtast efternavn"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="nationality">Nationalitet</label>
-            <input
-              id="nationality"
-              type="text"
-              value={nationality}
-              onChange={(e) => setNationality(e.target.value)}
-              placeholder="Indtast nationalitet"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="email">E-mail</label>
-            <input
-              id="email"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Indtast e-mail"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-          <div className="update-userinfo-group">
-            <label htmlFor="phoneNumber">Telefonnummer (+45)</label>
-            <input
-              id="phoneNumber"
-              type="number"
-              value={phoneNumber}
-              onChange={(e) => {
-                const eightDigits = e.target.value.slice(0, 8);
-                setPhoneNumber(eightDigits);
-              }}
-              placeholder="Indtast telefonnummer"
-              disabled={isSubmittingProfile}
-            />
-          </div>
-
-          <button type="submit" disabled={isSubmittingProfile}>
-            {isSubmittingProfile ? "Vent venligst..." : "Opdatér bruger"}
-          </button>
-          {profileInfo && <div className="info-message">{profileInfo}</div>}
-          {profileError && <div className="error-message">{profileError}</div>}
-        </form>
-      </div>
-      <div className="change-password-form">
-        <form onSubmit={handleUpdateUserPassword}>
-          <div className="change-password-group">
-            <label htmlFor="password">Ret Adgangskode </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Indtast ny adgangskode"
-              disabled={isSubmittingPassword}
-            />
-          </div>
-          <button type="submit" disabled={isSubmittingPassword}>
-            {isSubmittingPassword ? "Vent venligst..." : "Opdatér adgangskode"}
-          </button>
-          {passwordInfo && <div className="info-message">{passwordInfo}</div>}
-          {passwordError && (
-            <div className="error-message">{passwordError}</div>
-          )}
-        </form>
-      </div>
+      <UpdateUserInfoForm
+        handleUpdateUserInfo={handleUpdateUserInfo}
+        username={username}
+        setUsername={setUsername}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        middleName={middleName}
+        setMiddleName={setMiddleName}
+        lastName={lastName}
+        setLastName={setLastName}
+        nationality={nationality}
+        setNationality={setNationality}
+        email={email}
+        setEmail={setEmail}
+        phoneNumber={phoneNumber}
+        setPhoneNumber={setPhoneNumber}
+        isSubmittingProfile={isSubmittingProfile}
+        profileError={profileError}
+        profileInfo={profileInfo}
+      />
+      <ChangePasswordForm
+        handleUpdateUserPassword={handleUpdateUserPassword}
+        password={password}
+        setPassword={setPassword}
+        isSubmittingPassword={isSubmittingPassword}
+        passwordError={passwordError}
+        passwordInfo={passwordInfo}
+      />
     </div>
   );
 }
