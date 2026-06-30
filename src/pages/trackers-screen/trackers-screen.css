@@ -1,26 +1,22 @@
 .tracker-create-container {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
+  max-width: 30em;
   margin: auto;
-  margin-bottom: 20px;
-}
-
-.tracker-create-container p {
-  font-size: 50px;
-  font-weight: bolder;
+  margin-bottom: 1.5rem;
 }
 
 .tracker-create-container button {
-  padding: 40px;
+  padding: 2rem;
   background-color: var(--accent);
   color: var(--bg);
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: bold;
+  border-radius: 0.28rem;
+  font-size: 2rem;
+  font-weight: 900;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 1rem;
   transition: opacity 0.2s;
 }
 .tracker-create-container button:hover {
@@ -57,30 +53,42 @@
 .tracker-list-items {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin: 16px auto;
+  gap: 0.67rem;
+  margin: 0.67rem auto;
   width: 50%;
+  align-items: center;
 }
 
 .tracker-item-card {
   display: flex;
   flex-direction: column;
-  background-color: grey;
-  padding: 15px;
-  width: 100%;
+
+  background-color: black;
+  padding: 1rem;
+  width: 20rem;
+}
+
+.tracker-item-card-name h3 {
+  color: var(--text);
+}
+
+.tracker-list-button h3 {
+  color: black;
 }
 
 .tracker-list-button {
   display: flex;
   flex-direction: row;
+
   margin: auto;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .tracker-list-button button {
   cursor: pointer;
-  padding: 15px;
+  padding: 1rem;
+  background-color: white;
 }
 
 .delete-tracker-item-card {
@@ -89,9 +97,10 @@
 }
 
 .delete-tracker-item-card button {
-  padding: 10px;
+  padding: 0.6rem;
   background-color: red;
   cursor: pointer;
+  margin-top: -1.67rem;
 }
 
 .delete-tracker-item-card button:hover {

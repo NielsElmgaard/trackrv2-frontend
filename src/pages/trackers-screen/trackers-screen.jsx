@@ -99,18 +99,20 @@ function TrackersScreen() {
           </button>
         </div>
         <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Søg efter tracker..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Søg efter tracker..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className="tracker-overview-container">
           <div className="tracker-list-items">
             {currentItems.map((tracker) => (
               <div key={tracker.id} className="tracker-item-card">
-                <h3>{tracker.name}</h3>
+                <div className="tracker-item-card-name">
+                  <h3>{tracker.name}</h3>
+                </div>
                 <div className="delete-tracker-item-card">
                   <button
                     className={"tracker-name-item"}
