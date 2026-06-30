@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
 
-function TrackersScreen({selectedTracker }) {
+function TrackersScreen() {
   const [search, setSearch] = useState("");
   const [goToPage, setGoToPage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
