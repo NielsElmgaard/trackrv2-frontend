@@ -2,20 +2,27 @@ import useFetchTrackers from "../../hooks/useFetchTrackers.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
+import Tracker from "../tracker/Tracker.jsx";
+import { useNavigate } from "react-router-dom";
+import { BsFillTrash3Fill } from "react-icons/bs";
+
+import "./trackers-screen.css";
+import useDeleteTracker from "../../hooks/useDeleteTracker.js";
 
 function TrackersScreen() {
   const [search, setSearch] = useState("");
   const [goToPage, setGoToPage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   const [currentTracker, setCurrentTracker] = useState(null);
-  const {
-    isPending,
-    data: trackerDetails,
-    error,
-  } = useFetchTrackers({ name: search });
+  const { isPending, data: trackerDetails, fetchError } = useFetchTrackers();
+  const deleteTracker = useDeleteTracker();
   const queryClient = useQueryClient();
   const trackersList = Array.isArray(trackerDetails) ? trackerDetails : [];
-  const trackersPerPage = 5;
+  const trackersPerPage = trackersList.length; // TODO: Change to fitting number
+  const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
+  const [isDeletingTracker, setIsDeletingTracker] = useState(false);
 
   const filteredTrackers = trackersList.filter((t) => {
     if (search === "") {
@@ -31,6 +38,7 @@ function TrackersScreen() {
   const endIndex = startIndex + trackersPerPage;
   const currentItems = filteredTrackers?.slice(startIndex, endIndex) || [];
 
+  // Prefetch of next page
   useEffect(() => {
     if (currentPage < totalPages && filteredTrackers?.length > 0) {
       const nextPageItems = filteredTrackers.slice(
@@ -49,15 +57,30 @@ function TrackersScreen() {
     }
   }, [currentPage, filteredTrackers, queryClient]);
 
+  async function handleDeleteTracker(trackerId) {
+    setError("");
+    setInfo("");
+    setIsDeletingTracker(true);
+
+    try {
+      await deleteTracker.mutateAsync(trackerId);
+      setInfo("Tracker slettet");
+    } catch (err) {
+      setError(err.response?.data?.detail || "Kunne ikke slette trackeren.");
+    } finally {
+      setIsDeletingTracker(false);
+    }
+  }
+
   if (isPending)
     return (
       <div style={{ padding: "20px", textAlign: "center" }}>Indlæser...</div>
     );
 
-  if (error)
+  if (fetchError)
     return (
       <div style={{ color: "#d9534f", fontSize: "14px", textAlign: "center" }}>
-        En fejl opstod {error.message}
+        En fejl opstod {fetchError.message}
       </div>
     );
 
@@ -65,17 +88,62 @@ function TrackersScreen() {
     <>
       <div className="trackers-screen-container">
         <h1>Trackere</h1>
+        <div className="tracker-create-container">
+          <button
+            disabled={isDeletingTracker}
+            onClick={() =>
+              navigate("/Tracker", { state: { currentTracker: null } })
+            }
+          >
+            <p>Tilføj tracker</p>
+          </button>
+        </div>
+        <div className="search-bar">
         <input
           type="text"
           placeholder="Søg efter tracker..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        </div>
         <div className="tracker-overview-container">
-          <div className="tracker-name">
+          <div className="tracker-list-items">
             {currentItems.map((tracker) => (
-              <div key={tracker.id} className="tracker-name">
+              <div key={tracker.id} className="tracker-item-card">
                 <h3>{tracker.name}</h3>
+                <div className="delete-tracker-item-card">
+                  <button
+                    className={"tracker-name-item"}
+                    disabled={isDeletingTracker}
+                    onClick={() => handleDeleteTracker(tracker.id)}
+                  >
+                    <BsFillTrash3Fill />
+                  </button>
+                </div>
+                <div className="tracker-list-button">
+                  <button
+                    className={"tracker-name-item"}
+                    disabled={isDeletingTracker}
+                    onClick={() =>
+                      navigate("/Tracker", {
+                        state: { currentTracker: tracker },
+                      })
+                    }
+                  >
+                    <h3>Track</h3>
+                  </button>
+                  <button
+                    className={"tracker-history-item"}
+                    disabled={isDeletingTracker}
+                    onClick={() =>
+                      navigate("/TrackerHistory", {
+                        state: { currentTracker: tracker },
+                      })
+                    }
+                  >
+                    <h3>Historik</h3>
+                  </button>
+                </div>
               </div>
             ))}
           </div>

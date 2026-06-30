@@ -4,14 +4,18 @@ import { setTokenInMemory } from "./utils.js";
 import Header from "./components/header/Header.jsx";
 
 import "./App.css";
+
 import Login from "./pages/login/login.jsx";
 import HomeScreen from "./pages/home-screen/home-screen.jsx";
 import SignUpScreen from "./pages/sign-up-screen/SignUpScreen.jsx";
 import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
 import SettingsScreen from "./pages/settings-screen/SettingsScreen.jsx";
+import Tracker from "./pages/tracker/Tracker.jsx";
+import TrackerHistory from "./pages/tracker-history/TrackerHistory.jsx";
 
 import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
+
 import { useCallback, useEffect, useState, useRef } from "react";
 const queryClient = new QueryClient();
 
@@ -159,9 +163,17 @@ function App() {
                     path="/Settings"
                     element={<SettingsScreen accessToken={accessToken} />}
                   />
+                  <Route
+                    path="/Tracker"
+                    element={<Tracker accessToken={accessToken} />}
+                  />
+                  <Route
+                    path="/TrackerHistory"
+                    element={<TrackerHistory accessToken={accessToken} />}
+                  />
                 </Route>
 
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
           </div>

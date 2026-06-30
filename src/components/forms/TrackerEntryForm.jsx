@@ -2,8 +2,9 @@ import { useState } from "react";
 import { axiosInstance } from "../../utils";
 import { useQueryClient } from "@tanstack/react-query";
 import EntryValues from "../entryValues/EntryValues";
+import "./TrackerEntryForm.css";
 
-function CreateTrackerEntryForm({ numberOfEntries, currentTracker }) {
+function TrackerEntryForm({ numberOfEntries, currentTracker }) {
   const queryClient = useQueryClient();
   const [values, setValues] = useState({}); // map
   const [error, setError] = useState("");
@@ -44,14 +45,11 @@ function CreateTrackerEntryForm({ numberOfEntries, currentTracker }) {
     try {
       const fieldValues = Object.keys(values).map((fieldId) => ({
         fieldDefinitionId: fieldId,
-        value: values[fieldId],
+        value: values[fieldId]?.toString() ?? "",
       }));
-      await axiosInstance.post(
-        `/v1/trackers/trackerentries/${currentTracker.id}`,
-        {
-          values: fieldValues,
-        },
-      );
+      await axiosInstance.post(`/v1/trackerentries/${currentTracker.id}`, {
+        values: fieldValues,
+      });
       setInfo("Måling tilføjet succesfuldt!");
       setValues({});
 
@@ -64,7 +62,11 @@ function CreateTrackerEntryForm({ numberOfEntries, currentTracker }) {
       setIsSubmittingEntry(false);
     }
   }
-  if (!currentTracker.id || currentTracker.fields.length === 0) {
+  if (
+    !currentTracker.id ||
+    !currentTracker.fields ||
+    currentTracker.fields.length === 0
+  ) {
     return <p>Denne tracker har ingen felter endnu.</p>;
   }
 
@@ -98,4 +100,4 @@ function CreateTrackerEntryForm({ numberOfEntries, currentTracker }) {
     </>
   );
 }
-export default CreateTrackerEntryForm;
+export default TrackerEntryForm;

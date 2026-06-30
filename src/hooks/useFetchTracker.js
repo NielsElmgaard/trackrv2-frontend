@@ -10,7 +10,7 @@ function useFetchTracker({ trackerId } = {}) {
       return res.data;
     },
     staleTime: 1000 * 60 * 5, // 5 minutter
-    enabled: !!getTokenFromMemory(),
+    enabled: !!trackerId && !!getTokenFromMemory(),
   });
 }
 export default useFetchTracker;
