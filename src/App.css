@@ -23,13 +23,13 @@
 /*Error message*/
 .error-message {
   color: #ff6b6b;
-  font-size: 14px;
+  font-size: 0.85rem;
   text-align: center;
 }
 
 /*Info message*/
 .info-message {
-    color: #00ff88;
-  font-size: 14px;
+  color: #00ff88;
+  font-size: 0.85rem;
   text-align: center;
 }
