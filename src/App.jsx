@@ -45,7 +45,7 @@ function App() {
         const username = savedUsername ? JSON.parse(savedUsername) : "";
 
         const response = await fetch(
-          "https://trackrv2-api.onrender.com/api/v1/auth/refresh",
+          "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/auth/refresh",
           {
             method: "POST",
             credentials: "include",
@@ -97,7 +97,7 @@ function App() {
   async function handleLogout() {
     loggedOutRef.current = true;
     try {
-      await fetch("https://trackrv2-api.onrender.com/api/v1/auth/logout", {
+      await fetch("https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/auth/logout", {
         method: "POST",
         credentials: "include",
       });

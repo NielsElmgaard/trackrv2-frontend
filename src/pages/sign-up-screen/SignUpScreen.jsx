@@ -36,7 +36,7 @@ function SignUpScreen() {
 
     try {
       const response = await fetch(
-        "https://trackrv2-api.onrender.com/api/v1/users",
+        "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/users",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
