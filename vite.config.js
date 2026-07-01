@@ -12,9 +12,9 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         // Points local 'http://localhost:5173/api' requests to local C# backend
-        // Only used when running backend locally at port 5001
+        // Only used when running backend locally at port 8080
         "/api": {
-          target: "http://localhost:5001",
+          target: "http://localhost:8080",
           changeOrigin: true,
           secure: false,
         },

@@ -1,6 +1,7 @@
-import {useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "../../components/forms/SignUpForm";
+import { axiosInstance } from "../../utils";
 
 function SignUpScreen() {
   const [username, setUsername] = useState("");
@@ -35,44 +36,30 @@ function SignUpScreen() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/users",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: username.trim(),
-            password: password.trim(),
-            firstName: firstName.trim(),
-            middleName: middleName.trim(),
-            lastName: lastName.trim(),
-            nationality: nationality.trim(),
-            email: email.trim(),
-            phoneNumber: phoneNumber,
-          }),
-        },
-      );
+      const response = await axiosInstance.post("/v1/users", {
+        username: username.trim(),
+        password: password.trim(),
+        firstName: firstName.trim(),
+        middleName: middleName.trim(),
+        lastName: lastName.trim(),
+        nationality: nationality.trim(),
+        email: email.trim(),
+        phoneNumber: phoneNumber,
+      });
 
-      if (response.ok) {
-        setUsername("");
-        setPassword("");
-        setFirstName("");
-        setMiddleName("");
-        setLastName("");
-        setNationality("");
-        setEmail("");
-        setPhoneNumber("");
-        navigate("/Home");
-      } else {
-        const errorData = await response.json();
-        const errorMessage =
-          errorData.detail || "En fejl skete under oprettelse af bruger.";
-        setError(errorMessage);
-      }
+      setUsername("");
+      setPassword("");
+      setFirstName("");
+      setMiddleName("");
+      setLastName("");
+      setNationality("");
+      setEmail("");
+      setPhoneNumber("");
+      navigate("/Home");
     } catch (error) {
-      setError(
-        `${error.message || error} - Kunne ikke oprette forbindelse til serveren.`,
-      );
+      const errorMessage =
+        error.response?.data?.detail || error.message || error;
+      setError(`${errorMessage} - Fejl under oprettelse af bruger.`);
     } finally {
       setIsSubmitting(false);
     }

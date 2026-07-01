@@ -1,7 +1,11 @@
 import axios from "axios";
 
+const isDevelopment = import.meta.env.MODE === "development";
+
 export const axiosInstance = axios.create({
-  baseURL: "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api",
+  baseURL: isDevelopment 
+    ? "/api" 
+    : "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api",
   withCredentials: true,
 });
 

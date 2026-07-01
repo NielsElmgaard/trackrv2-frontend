@@ -1,6 +1,6 @@
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { setTokenInMemory } from "./utils.js";
+import { axiosInstance, setTokenInMemory } from "./utils.js";
 import Header from "./components/header/Header.jsx";
 
 import "./App.css";
@@ -44,34 +44,27 @@ function App() {
       try {
         const username = savedUsername ? JSON.parse(savedUsername) : "";
 
-        const response = await fetch(
-          "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/auth/refresh",
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: username,
-              refreshToken: "",
-              selectedRole: null,
-            }),
-          },
-        );
-        if (response.ok) {
-          const authHeader = response.headers.get("Authorization");
-          if (authHeader?.startsWith("Bearer ")) {
-            const token = authHeader.substring(7);
-            if (!loggedOutRef.current) {
-              setAccessToken(token);
-              setTokenInMemory(token);
-            }
-            return token;
+        const response = await axiosInstance.post("/v1/auth/refresh", {
+          username: username,
+          refreshToken: "",
+          selectedRole: null,
+        });
+
+        const authHeader =
+          response.headers["authorization"] ||
+          response.headers["Authorization"];
+        if (authHeader?.startsWith("Bearer ")) {
+          const token = authHeader.substring(7);
+          if (!loggedOutRef.current) {
+            setAccessToken(token);
+            setTokenInMemory(token);
           }
+          return token;
         }
       } catch (error) {
-        setError(`${error.message || error} - Fejl under token refresh`);
+        const errorMessage =
+          error.response?.data?.detail || error.message || error;
+        setError(`${errorMessage} - Fejl under token refresh`);
       } finally {
         refreshPromiseRef.current = null;
       }
@@ -97,16 +90,16 @@ function App() {
   async function handleLogout() {
     loggedOutRef.current = true;
     try {
-      await fetch("https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const response = await axiosInstance.post("/v1/auth/logout");
     } catch (error) {
-      console.error("Fejl under logout:", error);
+      const logoutError =
+        error.response?.data?.detail || error.message || error;
+      setError(`${logoutError} - Fejl under logout`);
     } finally {
       setAccessToken(null);
       setTokenInMemory(null);
       localStorage.removeItem("username");
+      queryClient.clear();
     }
   }
 

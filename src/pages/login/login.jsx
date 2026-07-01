@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./login.css";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosInstance } from "../../utils";
 
 function Login({ setAccessToken }) {
   const [username, setUsername] = useState(() => {
@@ -31,37 +32,24 @@ function Login({ setAccessToken }) {
     setIsLoggingIn(true);
 
     try {
-      const response = await fetch(
-        "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api/v1/auth/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            username: username.trim(),
-            password: password.trim(),
-            selectedRole: 1, // TODO: skal laves så den henter den aktive
-          }),
-        },
-      );
+      const response = await axiosInstance.post("/v1/auth/login", {
+        username: username.trim(),
+        password: password.trim(),
+        selectedRole: 1, // TODO: skal laves så den henter den aktive
+      });
 
-      if (response.ok) {
-        const authHeader = response.headers.get("Authorization");
-        if (authHeader && authHeader.startsWith("Bearer ")) {
-          const token = authHeader.substring(7);
-          setAccessToken(token);
-          setPassword("");
-          navigate("/Home");
-        }
-      } else {
-        const errorData = await response.json();
-        const errorMessage = errorData.detail || "En fejl skete under login.";
-        setError(errorMessage);
+      const authHeader =
+        response.headers["authorization"] || response.headers["Authorization"];
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        const token = authHeader.substring(7);
+        setAccessToken(token);
+        setPassword("");
+        navigate("/Home");
       }
     } catch (error) {
-      setError(
-        `${error.message || error} - Kunne ikke oprette forbindelse til serveren.`,
-      );
+      const errorMessage =
+        error.response?.data?.detail || error.message || error;
+      setError(`${errorMessage} - Fejl under login`);
     } finally {
       setIsLoggingIn(false);
     }

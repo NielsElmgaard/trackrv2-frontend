@@ -14,7 +14,6 @@ export default function useUpdateTrackerEntry(trackerId) {
       });
     },
     onSuccess: () => {
-      // Sørg for at genhente din historik automatisk ved succes
       queryClient.invalidateQueries({ queryKey: ["trackerEntries", trackerId] });
       queryClient.invalidateQueries({ queryKey: ["trackers", trackerId] });
     },
