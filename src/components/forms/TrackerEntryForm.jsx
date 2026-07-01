@@ -43,10 +43,24 @@ function TrackerEntryForm({ numberOfEntries, currentTracker }) {
     setIsSubmittingEntry(true);
 
     try {
-      const fieldValues = Object.keys(values).map((fieldId) => ({
-        fieldDefinitionId: fieldId,
-        value: values[fieldId]?.toString() ?? "",
-      }));
+      const fieldValues = currentTracker.fields.map((field) => {
+        const rawValue = values[field.id];
+
+        if (field.type === 3 || field.type === "Boolean") {
+          return {
+            fieldDefinitionId: field.id,
+            value: rawValue?.toString() ?? "false",
+          };
+        }
+
+        return {
+          fieldDefinitionId: field.id,
+          value:
+            rawValue !== undefined && rawValue !== ""
+              ? rawValue.toString()
+              : "",
+        };
+      });
       await axiosInstance.post(`/v1/trackerentries/${currentTracker.id}`, {
         values: fieldValues,
       });
@@ -72,11 +86,10 @@ function TrackerEntryForm({ numberOfEntries, currentTracker }) {
 
   return (
     <>
-      <div className="tracker-entry-form">
-        <h3>Måling nr. {numberOfEntries + 1}</h3>
+      <div className="custom-form">
         <form onSubmit={handleAddEntry}>
           {currentTracker.fields.map((field) => (
-            <div key={field.id} className="form-field-wrapper">
+            <div key={field.id} className="custom-form-group">
               <label htmlFor={`field-${field.id}`}>{field.label}</label>
 
               <EntryValues

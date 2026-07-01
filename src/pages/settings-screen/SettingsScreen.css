@@ -3,6 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 50vh; /* Centrerer lodret på skærmen */
-  gap: 12px;
+  min-height: 50vh; 
+  gap: 0.9rem;
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { axiosInstance } from "../../utils";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import "./TrackerForm.css";
 
 function TrackerForm() {
   const [trackerName, setTrackerName] = useState("");
@@ -38,25 +39,27 @@ function TrackerForm() {
   }
 
   return (
-    <form onSubmit={handleTracker} className="new-tracker-form">
-      <div className="form-group">
-        <label htmlFor="trackerName">Navn på tracker</label>
-        <input
-          id="trackerName"
-          type="text"
-          value={trackerName}
-          onChange={(e) => setTrackerName(e.target.value)}
-          placeholder="F.eks. Push ups, Vægt, Løb"
-          disabled={isSubmitting}
-        />
-      </div>
+    <div className="custom-form">
+      <form onSubmit={handleTracker}>
+        <div className="custom-form-group">
+          <label htmlFor="trackerName">Navn på tracker</label>
+          <input
+            id="trackerName"
+            type="text"
+            value={trackerName}
+            onChange={(e) => setTrackerName(e.target.value)}
+            placeholder="F.eks. Push ups, Vægt, Løb"
+            disabled={isSubmitting}
+          />
+        </div>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Opretter..." : "Gem tracker"}
-      </button>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Opretter..." : "Gem tracker"}
+        </button>
 
-      {error && <div className="error-message">{error}</div>}
-    </form>
+        {error && <div className="error-message">{error}</div>}
+      </form>
+    </div>
   );
 }
 

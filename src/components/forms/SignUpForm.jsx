@@ -24,7 +24,7 @@ function SignUpForm({
 }) {
   return (
     <div className="signup-container">
-      <div className="signup-form">
+      <div className="custom-form">
         <div className="login-link">
           <p>Allerede bruger?</p>
           <Link to="/">
@@ -32,7 +32,7 @@ function SignUpForm({
           </Link>
         </div>
         <form onSubmit={handleSignUp}>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="username">Brugernavn</label>
             <input
               id="username"
@@ -43,7 +43,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="password">Adgangskode </label>
             <input
               id="password"
@@ -54,7 +54,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="firstName">Fornavn</label>
             <input
               id="firstName"
@@ -65,7 +65,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="middleName">Mellemnavn</label>
             <input
               id="middleName"
@@ -76,7 +76,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="lastName">Efternavn</label>
             <input
               id="lastName"
@@ -87,7 +87,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="nationality">Nationalitet</label>
             <input
               id="nationality"
@@ -98,7 +98,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="email">E-mail</label>
             <input
               id="email"
@@ -109,7 +109,7 @@ function SignUpForm({
               disabled={isSubmitting}
             />
           </div>
-          <div className="signup-group">
+          <div className="custom-form-group">
             <label htmlFor="phoneNumber">Telefonnummer (+45)</label>
             <input
               id="phoneNumber"

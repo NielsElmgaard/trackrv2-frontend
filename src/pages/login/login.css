@@ -2,88 +2,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh; /* Centrerer lodret på skærmen */
+  min-height: 50vh;
 }
 
-.login-form {
+.sign-up-link :link {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 320px;
-  padding: 30px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  background-color: var(--bg);
-}
-
-.login-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.login-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);  
-}
-
-.login-group input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.2s;
-  background-color: var(--code-bg);
-  color: var(--text);
-}
-
-.login-group input:focus {
-  border-color: var(--accent);
-}
-
-.login-form button {
-  padding: 12px;
-  background-color: var(--accent);
-  color: var(--bg);
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: opacity 0.2s;
-}
-
-.login-form button:hover {
-  opacity: 0.8;
-}
-
-.error-message {
-  color: #ff6b6b;
-  font-size: 14px;
-  text-align: center;
-}
-
-.sign-up-link :link{
-  display: flex;
-  flex-direction: column;
-  margin-top: 15px;
+  margin-top: 1rem;
   text-decoration: none;
-  text-align: right;
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  
+  text-align: right;
 }
 
-.sign-up-link span{
+.sign-up-link span {
   color: var(--accent);
 }
 
-.sign-up-link :hover{
+.sign-up-link :hover {
   color: var(--accent-bg);
 }

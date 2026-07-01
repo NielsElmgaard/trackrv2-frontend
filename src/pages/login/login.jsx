@@ -69,9 +69,9 @@ function Login({ setAccessToken }) {
 
   return (
     <div className="login-container">
-      <div className="login-form">
+      <div className="custom-form">
         <form onSubmit={handleLogin}>
-          <div className="login-group">
+          <div className="custom-form-group">
             <label htmlFor="username">Brugernavn</label>
             <input
               id="username"
@@ -82,7 +82,7 @@ function Login({ setAccessToken }) {
               disabled={isLoggingIn}
             />
           </div>
-          <div className="login-group">
+          <div className="custom-form-group">
             <label htmlFor="password">Adgangskode </label>
             <input
               id="password"
