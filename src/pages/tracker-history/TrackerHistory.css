@@ -13,8 +13,7 @@
   margin-top: 1.5rem;
 }
 
-.history-error,
-.history-loading {
+.history-error{
   font-family: var(--sans);
   padding: 2rem 0;
   color: var(--text);

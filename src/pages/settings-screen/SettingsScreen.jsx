@@ -99,7 +99,11 @@ function SettingsScreen() {
     }
   }
   if (isPending)
-    return <div className="loading">Henter dine profiloplysninger...</div>;
+    return (
+      <div className="loading-screen-container">
+        <div className="loading"></div>
+      </div>
+    );
   if (fetchError)
     return (
       <div className="error-message">Kunne ikke hente profiloplysninger.</div>

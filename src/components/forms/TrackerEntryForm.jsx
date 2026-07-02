@@ -27,7 +27,6 @@ function TrackerEntryForm({ numberOfEntries, currentTracker }) {
         return "text";
     }
   }
-
   // update one specific field
   const handleValueChange = (fieldId, newValue) => {
     setValues((prev) => ({

@@ -74,7 +74,9 @@ function TrackersScreen() {
 
   if (isPending)
     return (
-      <div style={{ padding: "20px", textAlign: "center" }}>Indlæser...</div>
+      <div className="loading-screen-container">
+        <div className="loading"></div>
+      </div>
     );
 
   if (fetchError)

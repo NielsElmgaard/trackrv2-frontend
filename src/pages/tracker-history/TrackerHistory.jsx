@@ -11,7 +11,7 @@ function TrackerHistory() {
   const currentTracker = location.state?.currentTracker || null;
   const trackerId = currentTracker?.id;
   const { data: entries = [], isPending } = useFetchTrackerEntries(trackerId);
-    const deleteTrackerEntry = useDeleteTrackerEntry(trackerId);
+  const deleteTrackerEntry = useDeleteTrackerEntry(trackerId);
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
   const [isDeletingTrackerEntry, setIsDeletingTrackerEntry] = useState(false);
@@ -75,7 +75,11 @@ function TrackerHistory() {
   }
 
   if (isPending)
-    return <div className="history-loading">Henter historik...</div>;
+    return (
+      <div className="loading-screen-container">
+        <div className="loading"></div>
+      </div>
+    );
 
   if (entries.length === 0) {
     return (

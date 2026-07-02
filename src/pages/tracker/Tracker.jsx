@@ -4,14 +4,16 @@ import useFetchTracker from "../../hooks/useFetchTracker.js";
 import useUpdateTracker from "../../hooks/useUpdateTracker.js";
 import TrackerEntryForm from "../../components/forms/TrackerEntryForm";
 import TrackerForm from "../../components/forms/TrackerForm";
+import EditTracker from "../../components/tracker/EditTracker.jsx";
+import { FiEdit } from "react-icons/fi";
 import "./Tracker.css";
 
 function Tracker() {
   const location = useLocation();
   const currentTracker = location.state?.currentTracker || null;
-  
-  const { isPending, data: trackerDetails } = useFetchTracker({ 
-    trackerId: currentTracker?.id 
+
+  const { isPending, data: trackerDetails } = useFetchTracker({
+    trackerId: currentTracker?.id,
   });
   const updateTrackerMutation = useUpdateTracker();
 
@@ -19,6 +21,9 @@ function Tracker() {
   const [newFieldLabel, setNewFieldLabel] = useState("");
   const [newFieldType, setNewFieldType] = useState(1);
   const [showFieldForm, setShowFieldForm] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [error, setError] = useState("");
+  const [info, setInfo] = useState("");
 
   useEffect(() => {
     if (trackerDetails?.entries) {
@@ -37,7 +42,12 @@ function Tracker() {
     );
   }
 
-  if (isPending) return <div className="tracker-loading">Henter detaljer...</div>;
+  if (isPending)
+    return (
+      <div className="loading-screen-container">
+        <div className="loading"></div>
+      </div>
+    );
 
   const activeTracker = trackerDetails || currentTracker;
   const hasFields = activeTracker.fields && activeTracker.fields.length > 0;
@@ -70,6 +80,16 @@ function Tracker() {
   };
 
   const renderMainContent = () => {
+    if (editMode) {
+      return (
+        <EditTracker
+          currentTracker={activeTracker}
+          setEditMode={setEditMode}
+          setError={setError}
+          setInfo={setInfo}
+        />
+      );
+    }
     if (hasFields) {
       return (
         <TrackerEntryForm
@@ -80,15 +100,20 @@ function Tracker() {
     }
     return (
       <p className="empty-fields-msg">
-        Denne tracker har ingen felter endnu. Tilføj et felt nedenfor for at komme i gang!
+        Denne tracker har ingen felter endnu. Tilføj et felt nedenfor for at
+        komme i gang!
       </p>
     );
   };
 
   const renderFieldManagement = () => {
+    if (editMode) return null;
     if (!showFieldForm) {
       return (
-        <button className="btn-toggle-form" onClick={() => setShowFieldForm(true)}>
+        <button
+          className="btn-toggle-form"
+          onClick={() => setShowFieldForm(true)}
+        >
           Tilføj nyt felt (f.eks. Antal, Vægt)
         </button>
       );
@@ -99,7 +124,7 @@ function Tracker() {
         <h3>
           Tilføj nyt felt til <span>{activeTracker.name}</span>
         </h3>
-        
+
         <div className="form-group">
           <label htmlFor="field-label">Navn på felt:</label>
           <input
@@ -126,10 +151,18 @@ function Tracker() {
         </div>
 
         <div className="form-actions">
-          <button type="submit" className="btn-submit" disabled={updateTrackerMutation.isPending}>
+          <button
+            type="submit"
+            className="btn-submit"
+            disabled={updateTrackerMutation.isPending}
+          >
             {updateTrackerMutation.isPending ? "Gemmer felt..." : "Gem felt"}
           </button>
-          <button type="button" className="btn-cancel" onClick={() => setShowFieldForm(false)}>
+          <button
+            type="button"
+            className="btn-cancel"
+            onClick={() => setShowFieldForm(false)}
+          >
             Annuller
           </button>
         </div>
@@ -139,19 +172,36 @@ function Tracker() {
 
   return (
     <main className="tracker-container">
-      <header className="tracker-header">
-        <h1>{activeTracker.name}</h1>
-      </header>
+      {error && <div className="error-message">{error}</div>}
+      {info && <div className="info-message">{info}</div>}
+      {!editMode && (
+        <>
+          <header className="tracker-header">
+            <h1>{activeTracker.name}</h1>
+            <button
+              className="btn-edit-trigger"
+              onClick={() => setEditMode(true)}
+              title="Rediger tracker"
+            >
+              <FiEdit size={30} />
+            </button>
+          </header>
+        </>
+      )}
 
       <section className="tracker-content-section">
         {renderMainContent()}
       </section>
 
-      <hr className="tracker-divider" />
+      {!editMode && (
+        <>
+          <hr className="tracker-divider" />
 
-      <section className="manage-fields-section">
-        {renderFieldManagement()}
-      </section>
+          <section className="manage-fields-section">
+            {renderFieldManagement()}
+          </section>
+        </>
+      )}
     </main>
   );
 }
