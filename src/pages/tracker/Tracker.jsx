@@ -126,7 +126,9 @@ function Tracker() {
         </h3>
 
         <div className="form-group">
-          <label htmlFor="field-label">Navn på felt:</label>
+          <label htmlFor="field-label">
+            Navn på felt:
+          </label>
           <input
             id="field-label"
             type="text"

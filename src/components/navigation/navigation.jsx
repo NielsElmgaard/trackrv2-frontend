@@ -8,14 +8,12 @@ function Navigation({ onLogout }) {
 
   return (
     <>
-      {/* Enkel hamburger-knap (Tre streger lavet i CSS) */}
       <button className={`nav-toggle ${isOpen ? "open" : ""}`} onClick={() => setIsOpen(!isOpen)}>
         <span></span>
         <span></span>
         <span></span>
       </button>
 
-      {/* Menuen - som bare tilføjer klassen 'open' når der trykkes */}
       <div className={`nav-wrapper ${isOpen ? "open" : ""}`}>
         <h3>Hej, {username}!</h3>
         <NavLink to="/Trackers" end onClick={() => setIsOpen(false)}>Trackere</NavLink>

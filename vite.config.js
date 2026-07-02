@@ -1,22 +1,27 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import babel from "@rolldown/plugin-babel";
 
-// https://vite.dev/config/
 export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+
+  const useAzure = env.USE_AZURE === "true";
+
+  const targetUrl = useAzure
+    ? "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io"
+    : "http://localhost:8080";
+
   return {
-    base: "/", 
+    base: "/",
 
     plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
 
     server: {
       proxy: {
-        // Points local 'http://localhost:5173/api' requests to local C# backend
-        // Only used when running backend locally at port 8080
         "/api": {
-          target: "http://localhost:8080",
+          target: targetUrl,
           changeOrigin: true,
-          secure: false,
+          secure: !useAzure, // false for localhost HTTP, true for Azure HTTPS
         },
       },
     },
