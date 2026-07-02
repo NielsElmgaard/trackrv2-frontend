@@ -1,4 +1,5 @@
 :root {
+  --white: #e0e6ed;
   --name-text: #0044ff;
   --nav-text: #000a12;
   --text: #2d3748;
@@ -34,6 +35,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --white: #e0e6ed;
     --name-text: #0044ff;
     --nav-text: #e0e6ed;
     --text: #e0e6ed;
