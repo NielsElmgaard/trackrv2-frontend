@@ -12,6 +12,7 @@ import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
 import SettingsScreen from "./pages/settings-screen/SettingsScreen.jsx";
 import Tracker from "./pages/tracker/Tracker.jsx";
 import TrackerHistory from "./pages/tracker-history/TrackerHistory.jsx";
+import TrackerHistoryChart from "./pages/tracker-history-chart/TrackerHistoryChart.jsx";
 
 import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
@@ -165,6 +166,10 @@ function App() {
                   <Route
                     path="/TrackerHistory"
                     element={<TrackerHistory accessToken={accessToken} />}
+                  />
+                  <Route
+                    path="/TrackerHistoryChart"
+                    element={<TrackerHistoryChart accessToken={accessToken} />}
                   />
                 </Route>
 
