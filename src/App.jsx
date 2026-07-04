@@ -1,4 +1,5 @@
-import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
+import Navigate from "./components/navigation/Navigate.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { axiosInstance, setTokenInMemory } from "./utils.js";
 import Header from "./components/header/Header.jsx";
@@ -18,6 +19,7 @@ import NotFound from "./pages/not-found/not-found.jsx";
 import ProtectedRoute from "./components/route/protected-route.jsx";
 
 import { useCallback, useEffect, useState, useRef } from "react";
+import BackButton from "./components/navigation/BackButton.jsx";
 const queryClient = new QueryClient();
 
 function App() {
@@ -128,6 +130,14 @@ function App() {
           <div className="app-container">
             <Header onLogout={handleLogout} isLoggedIn={isLoggedIn} />
             <main className="content">
+              {isLoggedIn ? (
+                <div className="go-back">
+                  <BackButton />
+                </div>
+              ) : (
+                <></>
+              )}
+
               <Routes>
                 <Route
                   path="/"

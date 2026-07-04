@@ -214,3 +214,11 @@
       -1.8em -1.8em 0 0em var(--color-1);
   }
 }
+
+/* BACK BUTTON */
+.go-back{
+  display: flex;
+  flex-direction: row;
+  margin-top: -1rem;
+  margin-left: -2rem;
+}

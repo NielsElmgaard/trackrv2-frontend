@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../components/navigation/useNavigate";
 import SignUpForm from "../../components/forms/SignUpForm";
 import { axiosInstance } from "../../utils";
 

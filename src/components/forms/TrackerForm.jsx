@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { axiosInstance } from "../../utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../navigation/useNavigate.jsx";
 import "./TrackerForm.css";
 
 function TrackerForm() {

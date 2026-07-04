@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
 import Tracker from "../tracker/Tracker.jsx";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../components/navigation/useNavigate.jsx";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 import "./trackers-screen.css";

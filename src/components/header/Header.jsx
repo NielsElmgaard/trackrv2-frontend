@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "../navigation/Link.jsx";
 import Navigation from "../navigation/navigation.jsx";
 import "./Header.css";
 

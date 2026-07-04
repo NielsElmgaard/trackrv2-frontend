@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import NavLink from "../navigation/NavLink.jsx";
 import "./navigation.css";
 
 function Navigation({ onLogout }) {

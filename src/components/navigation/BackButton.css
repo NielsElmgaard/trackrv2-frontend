@@ -1,0 +1,14 @@
+.back-button {
+  background-color: var(--accent);
+  font-size: 1.5rem;
+  color: var(--bg);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.back-button:hover {
+  opacity: 0.8;
+}

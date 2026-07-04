@@ -104,8 +104,8 @@ function TrackerHistoryChart() {
             <ResponsiveContainer>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="formattedDate" stroke="var(--white)" />
-                <YAxis dataKey="numericValue" stroke="var(--white)" />
+                <XAxis dataKey="formattedDate" stroke="var(--text-h)" />
+                <YAxis dataKey="numericValue" stroke="var(--text-h)" />
                 <Tooltip
                   labelStyle={{
                     color: "var(--black)",
