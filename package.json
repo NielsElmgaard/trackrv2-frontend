@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:oracle": "cross-env USE_ORACLE=true vite",
-    "build": "vite build",
+    "build": "cross-env USE_ORACLE=true vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
