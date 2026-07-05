@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./login.css";
-import { useNavigate, Link } from "react-router-dom";
+import useNavigate from "../../components/navigation/useNavigate.jsx";
+import Link from "../../components/navigation/Link.jsx";
 import { axiosInstance } from "../../utils";
 
 function Login({ setAccessToken }) {

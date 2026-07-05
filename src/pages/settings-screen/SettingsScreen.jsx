@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./SettingsScreen.css";
-import { useNavigate, Link } from "react-router-dom";
+import useNavigate from "../../components/navigation/useNavigate.jsx";
+import Link from "../../components/navigation/Link.jsx";
 import useFetchUser from "../../hooks/useFetchUser.js";
 import { axiosInstance } from "../../utils.js";
 import UpdateUserInfoForm from "../../components/forms/UpdateUserInfoForm.jsx";

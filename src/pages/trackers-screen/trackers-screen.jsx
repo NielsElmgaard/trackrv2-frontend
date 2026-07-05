@@ -3,11 +3,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
 import Tracker from "../tracker/Tracker.jsx";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../components/navigation/useNavigate.jsx";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 import "./trackers-screen.css";
 import useDeleteTracker from "../../hooks/useDeleteTracker.js";
+import TrackerHistoryChart from "../tracker-history-chart/TrackerHistoryChart.jsx";
 
 function TrackersScreen() {
   const [search, setSearch] = useState("");
@@ -146,6 +147,17 @@ function TrackersScreen() {
                     }
                   >
                     <h3>Historik</h3>
+                  </button>
+                  <button
+                    className={"tracker-chart-item"}
+                    disabled={isDeletingTracker}
+                    onClick={() =>
+                      navigate("/TrackerHistoryChart", {
+                        state: { currentTracker: tracker },
+                      })
+                    }
+                  >
+                    <h3>Graf</h3>
                   </button>
                 </div>
               </div>
