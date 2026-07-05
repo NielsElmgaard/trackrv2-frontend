@@ -5,10 +5,10 @@ import babel from "@rolldown/plugin-babel";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  const useAzure = env.USE_AZURE === "true";
+  const useOracle = env.USE_ORACLE === "true";
 
-  const targetUrl = useAzure
-    ? "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io"
+  const targetUrl = useOracle
+    ? "https://api.trackr-v2.me"
     : "http://localhost:8080";
 
   return {
@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
         "/api": {
           target: targetUrl,
           changeOrigin: true,
-          secure: !useAzure, // false for localhost HTTP, true for Azure HTTPS
+          secure: !useOracle, // false for localhost HTTP, true for Oracle HTTPS
         },
       },
     },

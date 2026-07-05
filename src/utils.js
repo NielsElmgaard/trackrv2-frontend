@@ -5,7 +5,7 @@ const isDevelopment = import.meta.env.MODE === "development";
 export const axiosInstance = axios.create({
   baseURL: isDevelopment 
     ? "/api" 
-    : "https://ca-trackr.salmontree-f4468a82.swedencentral.azurecontainerapps.io/api",
+    : "https://api.trackr-v2.me",
   withCredentials: true,
 });
 

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:azure": "cross-env USE_AZURE=true vite",
+    "dev:oracle": "cross-env USE_ORACLE=true vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
