@@ -5,7 +5,7 @@ import babel from "@rolldown/plugin-babel";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  // Checks if you ran "npm run dev:oracle" locally
+  // Checks if "npm run dev:oracle" ran locally
   const useOracle = env.USE_ORACLE === "true";
 
   // Local development routing targets
@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         "/api": {
           target: targetUrl,
           changeOrigin: true,
-          secure: false, // Disables strict local SSL checks so your localhost dev server can connect smoothly
+          secure: false, // Disables strict local SSL checks so localhost dev server can connect smoothly
         },
       },
     },
