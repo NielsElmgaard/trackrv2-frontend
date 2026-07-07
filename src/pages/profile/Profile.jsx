@@ -2,6 +2,7 @@ import useNavigate from "../../components/navigation/useNavigate.jsx";
 import useFetchUser from "../../hooks/useFetchUser.js";
 import { useEffect, useState } from "react";
 import Followers from "../../components/UserFollow/Followers.jsx";
+import PopUp from "../../components/popup/PopUp.jsx"
 import "./Profile.css";
 
 function Profile() {
@@ -63,7 +64,12 @@ function Profile() {
           {renderFollowersManagement()}
           {isShowingFollowers && userDetails && (
             <div>
-              <Followers />
+              <PopUp
+                showPopUp={isShowingFollowers}
+                closePopUp={() => setIsShowingFollowers(false)}
+              >
+                <Followers />
+              </PopUp>
             </div>
           )}
         </section>
