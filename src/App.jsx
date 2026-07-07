@@ -10,8 +10,10 @@ import Login from "./pages/login/login.jsx";
 import HomeScreen from "./pages/home-screen/home-screen.jsx";
 import SignUpScreen from "./pages/sign-up-screen/SignUpScreen.jsx";
 import TrackersScreen from "./pages/trackers-screen/trackers-screen.jsx";
-import SettingsScreen from "./pages/settings-screen/SettingsScreen.jsx";
+import Profile from "./pages/profile/Profile.jsx";
 import Tracker from "./pages/tracker/Tracker.jsx";
+import SettingsScreen from "./pages/settings-screen/SettingsScreen.jsx";
+
 import TrackerHistory from "./pages/tracker-history/TrackerHistory.jsx";
 import TrackerHistoryChart from "./pages/tracker-history-chart/TrackerHistoryChart.jsx";
 
@@ -168,6 +170,10 @@ function App() {
                   <Route
                     path="/Settings"
                     element={<SettingsScreen accessToken={accessToken} />}
+                  />
+                  <Route
+                    path="/Profile"
+                    element={<Profile accessToken={accessToken}/>}
                   />
                   <Route
                     path="/Tracker"

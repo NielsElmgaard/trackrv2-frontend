@@ -17,7 +17,7 @@ function Navigation({ onLogout }) {
       <div className={`nav-wrapper ${isOpen ? "open" : ""}`}>
         <h3>Hej, {username}!</h3>
         <NavLink to="/Trackers" end onClick={() => setIsOpen(false)}>Trackere</NavLink>
-        <NavLink to="/Settings" end onClick={() => setIsOpen(false)}>Profilindstillinger</NavLink>
+        <NavLink to="/Profile" end onClick={() => setIsOpen(false)}>Profil</NavLink>
         <button className="logout-button" onClick={onLogout}>Log ud</button>
       </div>
     </>

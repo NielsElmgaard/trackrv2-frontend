@@ -1,0 +1,26 @@
+.profile-settings-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-username {
+  margin-top: -3rem;
+}
+
+.profile-settings-container button {
+  width: 10rem;
+  padding: 0.67rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 0.28rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.67rem;
+  transition: opacity 0.2s;
+}
+
+.profile-settings-container button:hover {
+  opacity: 0.8;
+}
