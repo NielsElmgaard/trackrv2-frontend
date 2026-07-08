@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useUnfollowUser from "../../hooks/useUnfollowUser.js";
 import useFetchFollowingForUser from "../../hooks/useFetchFollowingForUser.js";
+import "./Following.css"
 
 function Following({ setInfo, setError }) {
   const {

@@ -5,6 +5,8 @@ import Followers from "../../components/UserFollow/Followers.jsx";
 import PopUp from "../../components/popup/PopUp.jsx";
 import "./Profile.css";
 import Following from "../../components/UserFollow/Following.jsx";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 function Profile() {
   const navigate = useNavigate();
@@ -43,34 +45,6 @@ function Profile() {
       <div className="error-message">Kunne ikke hente profiloplysninger.</div>
     );
 
-  const renderFollowersManagement = () => {
-    if (!isShowingFollowers) {
-      return (
-        <button onClick={() => setIsShowingFollowers(true)}>Følgere</button>
-      );
-    } else {
-      return (
-        <button onClick={() => setIsShowingFollowers(false)}>
-          Skjul følgere
-        </button>
-      );
-    }
-  };
-
-  const renderFollowingManagement = () => {
-    if (!isShowingFollowing) {
-      return (
-        <button onClick={() => setIsShowingFollowing(true)}>Fulgte</button>
-      );
-    } else {
-      return (
-        <button onClick={() => setIsShowingFollowing(false)}>
-          Skjul fulgte
-        </button>
-      );
-    }
-  };
-
   return (
     <>
       <div className="profile-container">
@@ -85,27 +59,44 @@ function Profile() {
         </h2>
         <section className="manage-follow-section">
           <div className="follower-section">
-            {renderFollowersManagement()}
+            {!isShowingFollowers && (
+              <button onClick={() => setIsShowingFollowers(true)}>
+                Følgere
+              </button>
+            )}
+
             {isShowingFollowers && userDetails && (
               <div>
                 <PopUp
-                  showPopUp={isShowingFollowers}
-                  closePopUp={() => setIsShowingFollowers(false)}
+                  trigger={isShowingFollowers}
+                  setTrigger={setIsShowingFollowers}
                 >
-                  <Followers />
+                  <Card variant="outlined">
+                    <CardContent>
+                      <Followers />
+                    </CardContent>
+                  </Card>
                 </PopUp>
               </div>
             )}
           </div>
           <div className="following-section">
-            {renderFollowingManagement()}
+            {!isShowingFollowing && (
+              <button onClick={() => setIsShowingFollowing(true)}>
+                Fulgte
+              </button>
+            )}
             {isShowingFollowing && userDetails && (
               <div>
                 <PopUp
-                  showPopUp={isShowingFollowing}
-                  closePopUp={() => setIsShowingFollowing(false)}
+                  trigger={isShowingFollowing}
+                  setTrigger={setIsShowingFollowing}
                 >
-                  <Following  setInfo={setInfo} setError={setError}/>
+                  <Card variant="outlined">
+                    <CardContent>
+                      <Following setInfo={setInfo} setError={setError} />
+                    </CardContent>
+                  </Card>
                 </PopUp>
               </div>
             )}
@@ -119,4 +110,5 @@ function Profile() {
     </>
   );
 }
+
 export default Profile;

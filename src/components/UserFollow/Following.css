@@ -1,0 +1,15 @@
+.following-item-card {
+  display: flex;
+  flex-direction: row;
+    justify-content: center;
+align-items: center;
+width: 100%;
+gap: 15px;
+padding: 10px 0;
+}
+.unfollow-item-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
