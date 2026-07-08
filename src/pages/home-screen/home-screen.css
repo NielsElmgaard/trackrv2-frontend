@@ -4,3 +4,27 @@
   align-items: center;
   min-height: 50vh;
 }
+.follow-user-item-card button{
+  padding: 0.67rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 0.28rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.67rem;
+  transition: opacity 0.2s;
+}
+
+.follow-user-item-card button:hover{
+ opacity: 0.8;
+}
+
+.search-user-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border: solid 0.1rem var(--accent);
+  width: 50%;
+}
