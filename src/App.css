@@ -25,6 +25,7 @@
   color: #ff6b6b;
   font-size: 0.85rem;
   text-align: center;
+  min-height: 4rem;
 }
 
 /*Info message*/

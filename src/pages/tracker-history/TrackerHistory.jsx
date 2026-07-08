@@ -147,7 +147,7 @@ function TrackerHistory() {
           return (
             <div key={entry.id} className="entry-card">
               <div className="delete-tracker-entry">
-                <button onClick={() => handleDeleteTrackerEntry(entry.id)}>
+                <button onClick={() => handleDeleteTrackerEntry(entry.id)} aria-label="Slet Tracker Entry">
                   <BsFillTrash3Fill />
                 </button>
               </div>

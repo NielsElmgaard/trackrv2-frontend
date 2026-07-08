@@ -121,6 +121,7 @@ function TrackersScreen() {
                     className={"tracker-name-item"}
                     disabled={isDeletingTracker}
                     onClick={() => handleDeleteTracker(tracker.id)}
+                    aria-label="Slet Tracker"
                   >
                     <BsFillTrash3Fill />
                   </button>

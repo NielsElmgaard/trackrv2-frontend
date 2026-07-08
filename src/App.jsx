@@ -67,9 +67,12 @@ function App() {
           return token;
         }
       } catch (error) {
-        const errorMessage =
-          error.response?.data?.detail || error.message || error;
-        setError(`${errorMessage} - Fejl under token refresh`);
+        if (error.response?.status !== 400 && error.response?.status !== 401) {
+          const errorMessage =
+            error.response?.data?.detail || error.message || error;
+          console.error("Uventet fejl under token refresh:", errorMessage);
+          setError(`${errorMessage} - Fejl under token refresh`);
+        }
       } finally {
         refreshPromiseRef.current = null;
       }
@@ -173,7 +176,7 @@ function App() {
                   />
                   <Route
                     path="/Profile"
-                    element={<Profile accessToken={accessToken}/>}
+                    element={<Profile accessToken={accessToken} />}
                   />
                   <Route
                     path="/Tracker"

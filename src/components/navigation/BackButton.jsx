@@ -5,7 +5,7 @@ import "./BackButton.css"
 function BackButton({ fallback = "/" }) {
   const goBack = useGoBack();
   return (
-    <button onClick={goBack} className="back-button">
+    <button onClick={goBack} className="back-button" aria-label="Gå tilbage">
       <RiArrowGoBackFill />
     </button>
   );

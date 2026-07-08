@@ -14,7 +14,7 @@ function useUnfollowUser() {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ["followers"],
+        queryKey: ["followings"],
       });
     },
   });

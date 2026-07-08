@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./login.css";
 import useNavigate from "../../components/navigation/useNavigate.jsx";
 import Link from "../../components/navigation/Link.jsx";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 import { axiosInstance } from "../../utils";
 
 function Login({ setAccessToken }) {
@@ -56,6 +58,11 @@ function Login({ setAccessToken }) {
     }
   }
 
+  const handleCloseToast = (event, reason) => {
+    if (reason === "clickaway") return;
+    setError("");
+  };
+
   return (
     <div className="login-container">
       <div className="custom-form">
@@ -86,7 +93,24 @@ function Login({ setAccessToken }) {
           <button type="submit" disabled={isLoggingIn}>
             {isLoggingIn ? "Vent venligst..." : "Log ind"}
           </button>
-          {error && <div className="error-message">{error}</div>}
+
+          <Snackbar
+            open={!!error}
+            autoHideDuration={5000}
+            onClose={handleCloseToast}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            {error ? (
+              <Alert
+                variant="filled"
+                severity="error"
+                onClose={handleCloseToast}
+                sx={{ width: "100%" }}
+              >
+                {error}
+              </Alert>
+            ) : undefined}
+          </Snackbar>
 
           <div className="sign-up-link">
             <Link to="/signup">

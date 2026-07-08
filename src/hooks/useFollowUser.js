@@ -14,7 +14,7 @@ function useFollowUser() {
     },
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ["followers"],
+        queryKey: ["followings"],
       });
     },
   });
