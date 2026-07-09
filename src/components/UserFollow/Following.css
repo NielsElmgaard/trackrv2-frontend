@@ -1,15 +1,24 @@
 .following-item-card {
   display: flex;
   flex-direction: row;
-    justify-content: center;
-align-items: center;
-width: 100%;
-gap: 15px;
-padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  border-bottom: 0.05rem solid var(--accent);
 }
+.following-item-card-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.following-item-card-name h3 {
+  margin: 0;
+}
+
 .unfollow-item-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+  display: flex;
+  align-items: center;
 }

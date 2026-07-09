@@ -28,3 +28,7 @@
   border: solid 0.1rem var(--accent);
   width: 50%;
 }
+
+.search-user-item-card-info h3{
+  color:var(--text-h);
+}

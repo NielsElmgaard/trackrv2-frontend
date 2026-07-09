@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
 
   // Local development routing targets
   const targetUrl = useOracle
-    ? "https://trackr-v2.me"
+    ? "https://api.trackr-v2.me"
     : "http://localhost";
 
   return {

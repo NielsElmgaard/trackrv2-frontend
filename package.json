@@ -8,7 +8,8 @@
     "dev:oracle": "cross-env USE_ORACLE=true vite",
     "build": "cross-env USE_ORACLE=true vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preview:oracle": "cross-env USE_ORACLE=true vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

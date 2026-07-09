@@ -16,16 +16,18 @@
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 40%;
   position: relative;
   box-sizing: border-box;
+  font-size: 0.8rem;
+
 }
 
 .popup-inner .close-btn {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
+  top: 0.45rem;
+  right: 1.5rem;
+  font-size: 1.7rem;
   font-weight: bold;
   color: #333;
   background: none;
@@ -34,12 +36,26 @@
   padding: 0;
   line-height: 1;
   transition: all 200ms;
+  
+}
+
+.popup-inner button{
+  padding: 0.2rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 0.28rem;
+  font-size: 0.67rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.67rem;
+  transition: opacity 0.2s;
 }
 
 .popup-inner button:hover {
-  background: var(--bg);
+  opacity: 0.8;
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 768px) {
   .popup-inner {
     width: 70%;
   }
