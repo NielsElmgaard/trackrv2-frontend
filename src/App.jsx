@@ -22,7 +22,18 @@ import ProtectedRoute from "./components/route/protected-route.jsx";
 
 import { useCallback, useEffect, useState, useRef } from "react";
 import BackButton from "./components/navigation/BackButton.jsx";
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (failureCount, error) => {
+        if (status === 400 || status === 401 || status === 403) {
+          return false;
+        }
+        return failureCount < 3; // try up to 3 times otherwise
+      },
+    },
+  },
+});
 
 function App() {
   const [error, setError] = useState("");

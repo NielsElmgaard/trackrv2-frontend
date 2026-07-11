@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import useUnfollowUser from "../../hooks/useUnfollowUser.js";
-import useFetchFollowingForUser from "../../hooks/useFetchFollowingForUser.js";
-import "./Following.css"
+import "./Following.css";
 
-function Following({ setInfo, setError }) {
-  const {
-    isPending,
-    data: followingDetails,
-    fetchError,
-  } = useFetchFollowingForUser();
-
+function Following({ followingDetails, mutualFollowers, setInfo, setError }) {
   const [username, setUsername] = useState("");
   const [isSubmittingUnFollow, setIsSubmittingUnFollow] = useState(false);
   const unFollowUser = useUnfollowUser();
@@ -19,15 +12,6 @@ function Following({ setInfo, setError }) {
       setUsername(followingDetails.username || "");
     }
   }, [followingDetails]);
-
-  if (isPending)
-    return (
-      <div className="loading-screen-container">
-        <div className="loading"></div>
-      </div>
-    );
-  if (fetchError)
-    return <div className="error-message">Kunne ikke hente følgere.</div>;
 
   const hasFollowings =
     Array.isArray(followingDetails) && followingDetails.length > 0;
@@ -39,9 +23,10 @@ function Following({ setInfo, setError }) {
 
     try {
       await unFollowUser.mutateAsync(followingId);
-      setInfo(
-        `Stoppet med at følge ${followingDetails.map((following) => following.id === followingId && following.username)}`,
+      const unfollowedUser = followingDetails.find(
+        (following) => following.id === followingId,
       );
+      setInfo(`Stoppet med at følge ${unfollowedUser.username}`);
     } catch (err) {
       setError(
         err.response?.data?.detail || "Kunne ikke stoppe med at følger bruger.",

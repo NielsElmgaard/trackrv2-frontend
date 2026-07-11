@@ -60,7 +60,7 @@ axiosInstance.interceptors.response.use(
         );
         setTokenInMemory(null);
 
-        //window.location.href = "/";
+        window.location.href = "/";
 
         return Promise.reject(refreshError);
       }

@@ -1,58 +1,72 @@
-import useFetchFollowersForUser from "../../hooks/useFetchFollowersForUser.js";
-import { useEffect, useState } from "react";
+import useFollowUser from "../../hooks/useFollowUser";
+import { useState } from "react";
+import "./Followers.css";
 
-function Followers() {
-  const {
-    isPending,
-    data: followersDetails,
-    fetchError,
-  } = useFetchFollowersForUser();
+function Followers({ followersDetails, mutualFollowers, setInfo, setError }) {
+  const followUser = useFollowUser();
+  const [isFollowingUser, setIsFollowingUser] = useState(false);
 
-  const [username, setUsername] = useState("");
-  const [error, setError] = useState("");
-  const [info, setInfo] = useState("");
+  async function handleFollowUser(followingId) {
+    setError("");
+    setInfo("");
+    setIsFollowingUser(true);
 
-  useEffect(() => {
-    if (followersDetails) {
-      setUsername(followersDetails.username || "");
+    try {
+      await followUser.mutateAsync(followingId);
+      const followedUser = followersDetails.find(
+        (follower) => follower.id === followingId,
+      );
+      setInfo(`${followedUser.username} fulgt`);
+    } catch (err) {
+      setError(err.response?.data?.detail || "Kunne ikke følge brugeren.");
+    } finally {
+      setIsFollowingUser(false);
     }
-  }, [followersDetails]);
-
-  if (isPending)
-    return (
-      <div className="loading-screen-container">
-        <div className="loading"></div>
-      </div>
-    );
-  if (fetchError)
-    return <div className="error-message">Kunne ikke hente følgere.</div>;
+  }
 
   const hasFollowers =
     Array.isArray(followersDetails) && followersDetails.length > 0;
 
+  if (!hasFollowers) {
+    return (
+      <div>
+        <span>Ingen følgere fundet</span>
+      </div>
+    );
+  }
+  return (
+    <div>
+      {followersDetails.map((follower) => {
+        const isMutual = mutualFollowers.some((m) => m.id === follower.id);
 
-  const renderFollowersContent = () => {
-    if (!hasFollowers) {
-      return (
-        <div>
-          <span>Ingen følgere fundet</span>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {followersDetails.map((follower) => (
-            <div key={follower.id} className="follower-item-card">
-              <div className="follower-item-card-name">
-                <h3>{follower.username}</h3>
-              </div>
+        return (
+          <div key={follower.id} className="follower-item-card">
+            <div className="follower-item-card-name">
+              <h3>{follower.username}</h3>
             </div>
-          ))}
-        </div>
-      );
-    }
-  };
-
-  return <>{renderFollowersContent()}</>;
+            {isMutual ? (
+              <span
+                className="mutual-tag"
+                style={{ fontSize: "0.75rem", color: "#888" }}
+              >
+                (I følger hinanden)
+              </span>
+            ) : (
+              <div className="follow-user-item-card">
+                <button
+                  className={"follow-user-item"}
+                  disabled={isFollowingUser}
+                  onClick={() => handleFollowUser(follower.id)}
+                >
+                  <span>Følg</span>
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
+
 export default Followers;

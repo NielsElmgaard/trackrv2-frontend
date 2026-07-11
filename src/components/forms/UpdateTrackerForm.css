@@ -23,5 +23,10 @@ select {
     border-color 0.15s ease,
     box-shadow 0.15s ease;
   margin-top: 0.33rem;
-  
+}
+
+.edit-fields-list textarea {
+  margin-top: 1.33rem;
+  width: 100%;
+  min-height: 10rem;
 }

@@ -5,6 +5,8 @@ function UpdateTrackerForm({
   handleEditTracker,
   updatedTrackerName,
   setUpdatedTrackerName,
+  updatedTrackerDescription,
+  setUpdatedTrackerDescription,
   isSubmittingEdit,
   setEditMode,
   handleLocalFieldChange,
@@ -12,14 +14,17 @@ function UpdateTrackerForm({
 }) {
   return (
     <form onSubmit={handleEditTracker} className="custom-form">
-      <div
-        className="custom-form-group"
-      >
+      <div className="custom-form-group">
         <input
           type="text"
           value={updatedTrackerName}
           onChange={(e) => setUpdatedTrackerName(e.target.value)}
           placeholder="Tracker navn"
+        />
+        <textarea
+          value={updatedTrackerDescription}
+          onChange={(e) => setUpdatedTrackerDescription(e.target.value)}
+          placeholder="Tracker beskrivelse"
         />
         <button type="submit" title="Gem ændringer" disabled={isSubmittingEdit}>
           <FiCheck size={24} color="green" />
@@ -36,17 +41,21 @@ function UpdateTrackerForm({
       <div className="edit-fields-list">
         <h3>Rediger tilhørende felter</h3>
         {localFields.map((field) => (
-          <div
-            key={field.id}
-            className="edit-field-row"
-          >
+          <div key={field.id} className="edit-field-row">
             <input
               type="text"
               value={field.label}
               onChange={(e) =>
                 handleLocalFieldChange(field.id, "label", e.target.value)
               }
-              placeholder="Felt navn"
+              placeholder="Feltnavn"
+            />
+            <textarea
+              value={field.description ?? ""}
+              onChange={(e) =>
+                handleLocalFieldChange(field.id, "description", e.target.value)
+              }
+              placeholder="Feltbeskrivelse"
             />
             <select
               value={field.type}

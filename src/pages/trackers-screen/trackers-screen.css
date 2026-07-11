@@ -33,16 +33,21 @@
 }
 
 .tracker-item-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-
   background-color: black;
-  padding: 1rem;
+  padding: 1.5rem 1rem 1rem 1rem;
   width: 20rem;
+  border-radius: 0.28rem;
 }
 
 .tracker-item-card-name h3 {
   color: var(--white);
+  margin-top: 0.5rem;
+  text-align: center;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .tracker-list-button h3 {
@@ -65,17 +70,40 @@
 }
 
 .delete-tracker-item-card {
-  display: flex;
-  flex-direction: row-reverse;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }
 
 .delete-tracker-item-card button {
-  padding: 0.6rem;
-  background-color: red;
+  display: flex;
+  padding: 0.4rem;
+  background-color: #b13333;
+  border: none;
   cursor: pointer;
-  margin-top: -1.67rem;
+  transition: opacity 0.2s ease;
+  border-radius: 0.2rem;
 }
 
 .delete-tracker-item-card button:hover {
+  opacity: 0.8;
+}
+
+.description-tracker-item-card {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.description-tracker-item-card button {
+  padding: 0.15rem;
+  cursor: pointer;
+  display: flex;
+  border-radius: 0.2rem;
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.description-tracker-item-card button:hover {
   opacity: 0.8;
 }

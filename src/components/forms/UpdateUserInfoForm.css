@@ -56,3 +56,8 @@
 .update-userinfo-form button:hover {
   opacity: 0.8;
 }
+
+.custom-form-group textarea{
+  width: 100%;
+  min-height: 10rem;
+}

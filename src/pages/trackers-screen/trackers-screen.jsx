@@ -5,6 +5,10 @@ import { axiosInstance } from "../../utils.js";
 import Tracker from "../tracker/Tracker.jsx";
 import useNavigate from "../../components/navigation/useNavigate.jsx";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import PopUp from "../../components/popup/PopUp.jsx";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 import "./trackers-screen.css";
 import useDeleteTracker from "../../hooks/useDeleteTracker.js";
@@ -24,6 +28,7 @@ function TrackersScreen() {
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
   const [isDeletingTracker, setIsDeletingTracker] = useState(false);
+  const [trackerDescriptionId, setTrackerDescriptionId] = useState(null);
 
   const filteredTrackers = trackersList.filter((t) => {
     if (search === "") {
@@ -125,6 +130,25 @@ function TrackersScreen() {
                   >
                     <BsFillTrash3Fill />
                   </button>
+                </div>
+                {trackerDescriptionId !== tracker.id && (
+                  <div className="description-tracker-item-card">
+                    <button onClick={() => setTrackerDescriptionId(tracker.id)}>
+                      <AiOutlineInfoCircle size={22} />
+                    </button>
+                  </div>
+                )}
+                <div>
+                  <PopUp
+                    trigger={trackerDescriptionId === tracker.id}
+                    setTrigger={setTrackerDescriptionId}
+                  >
+                    <Card variant="outlined">
+                      <CardContent>
+                        <span>{tracker.description ?? ""}</span>
+                      </CardContent>
+                    </Card>
+                  </PopUp>
                 </div>
                 <div className="tracker-list-button">
                   <button

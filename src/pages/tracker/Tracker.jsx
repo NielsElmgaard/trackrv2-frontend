@@ -20,6 +20,7 @@ function Tracker() {
   const [numberOfEntries, setNumberOfEntries] = useState(0);
   const [newFieldLabel, setNewFieldLabel] = useState("");
   const [newFieldType, setNewFieldType] = useState(1);
+  const [newFieldDescription, setNewFieldDescription] = useState("");
   const [showFieldForm, setShowFieldForm] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [error, setError] = useState("");
@@ -60,10 +61,16 @@ function Tracker() {
       ...(activeTracker.fields || []).map((f) => ({
         id: f.id,
         label: f.label,
+        description: f.description,
         type: f.type,
         entryValues: f.entryValues || [],
       })),
-      { label: newFieldLabel, type: newFieldType, entryValues: [] },
+      {
+        label: newFieldLabel,
+        description: newFieldDescription,
+        type: newFieldType,
+        entryValues: [],
+      },
     ];
 
     try {
@@ -73,6 +80,7 @@ function Tracker() {
         fields: updatedFields,
       });
       setNewFieldLabel("");
+      setNewFieldDescription("");
       setShowFieldForm(false);
     } catch (err) {
       console.error("Kunne ikke opdatere tracker:", err);
@@ -126,15 +134,24 @@ function Tracker() {
         </h3>
 
         <div className="form-group">
-          <label htmlFor="field-label">
-            Navn på felt:
-          </label>
+          <label htmlFor="field-label">Navn på felt:</label>
           <input
             id="field-label"
             type="text"
             value={newFieldLabel}
             onChange={(e) => setNewFieldLabel(e.target.value)}
             placeholder="f.eks. Antal gentagelser"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="field-description">Beskrivelse af felt:</label>
+          <input
+            id="field-label"
+            type="text"
+            value={newFieldDescription}
+            onChange={(e) => setNewFieldDescription(e.target.value)}
+            placeholder="..."
           />
         </div>
 

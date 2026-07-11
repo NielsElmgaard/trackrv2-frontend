@@ -6,6 +6,7 @@ import "./TrackerForm.css";
 
 function TrackerForm() {
   const [trackerName, setTrackerName] = useState("");
+  const [trackerDescription, setTrackerDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,6 +26,7 @@ function TrackerForm() {
     try {
       await axiosInstance.post("/v1/trackers", {
         name: trackerName.trim(),
+        description: trackerDescription.trim(),
         fields: [],
       });
 
@@ -49,6 +51,16 @@ function TrackerForm() {
             value={trackerName}
             onChange={(e) => setTrackerName(e.target.value)}
             placeholder="F.eks. Push ups, Vægt, Løb"
+            disabled={isSubmitting}
+          />
+        </div>
+        <div className="custom-form-group">
+          <label htmlFor="trackerDescription">Beskrivelse af tracker</label>
+          <textarea
+            id="trackerDescription"
+            value={trackerDescription ?? ""}
+            onChange={(e) => setTrackerDescription(e.target.value)}
+            placeholder="Indtast beskrivelse"
             disabled={isSubmitting}
           />
         </div>
