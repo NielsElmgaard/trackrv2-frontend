@@ -58,7 +58,7 @@ function TrackerForm() {
           <label htmlFor="trackerDescription">Beskrivelse af tracker</label>
           <textarea
             id="trackerDescription"
-            value={trackerDescription ?? ""}
+            value={trackerDescription ?? null}
             onChange={(e) => setTrackerDescription(e.target.value)}
             placeholder="Indtast beskrivelse"
             disabled={isSubmitting}

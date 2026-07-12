@@ -51,7 +51,7 @@ function UpdateTrackerForm({
               placeholder="Feltnavn"
             />
             <textarea
-              value={field.description ?? ""}
+              value={field.description ?? null}
               onChange={(e) =>
                 handleLocalFieldChange(field.id, "description", e.target.value)
               }

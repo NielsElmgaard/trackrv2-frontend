@@ -8,7 +8,7 @@ function useUpdateTracker() {
     mutationFn: async ({ trackerId, name, description, fields }) => {
       const response = await axiosInstance.put(`/v1/trackers/${trackerId}`, {
         name: name,
-        description: description,
+        description: description ?? null,
         fields: fields,
       });
       return response.data;
@@ -16,6 +16,9 @@ function useUpdateTracker() {
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["trackers", variables.trackerId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["trackers"],
       });
     },
   });

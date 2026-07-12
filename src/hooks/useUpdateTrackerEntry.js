@@ -9,7 +9,7 @@ export default function useUpdateTrackerEntry(trackerId) {
       return await axiosInstance.put(`/v1/trackerentries/${entryId}`, {
         Values: fieldValues.map(v => ({
           FieldDefinitionId: v.fieldDefinitionId || v.FieldDefinitionId,
-          Value: v.value ?? ""
+          Value: v.value ?? null
         }))
       });
     },

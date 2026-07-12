@@ -38,7 +38,7 @@ function EditTracker({ currentTracker, setEditMode, setError, setInfo }) {
       await updateTrackerMutation.mutateAsync({
         trackerId: currentTracker.id,
         name: updatedTrackerName || currentTracker.name,
-        description: updatedTrackerDescription || currentTracker.description,
+        description: updatedTrackerDescription,
         fields: localFields,
       });
       setInfo("Tracker blev opdateret succesfuldt!");
