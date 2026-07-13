@@ -22,6 +22,7 @@ import ProtectedRoute from "./components/route/protected-route.jsx";
 
 import { useCallback, useEffect, useState, useRef } from "react";
 import BackButton from "./components/navigation/BackButton.jsx";
+import PublicProfile from "./pages/public-profile/PublicProfile.jsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -173,34 +174,17 @@ function App() {
                 />
 
                 <Route element={<ProtectedRoute accessToken={accessToken} />}>
-                  <Route
-                    path="/Home"
-                    element={<HomeScreen accessToken={accessToken} />}
-                  />
-                  <Route
-                    path="/Trackers"
-                    element={<TrackersScreen accessToken={accessToken} />}
-                  />
-                  <Route
-                    path="/Settings"
-                    element={<SettingsScreen accessToken={accessToken} />}
-                  />
-                  <Route
-                    path="/Profile"
-                    element={<Profile accessToken={accessToken} />}
-                  />
-                  <Route
-                    path="/Tracker"
-                    element={<Tracker accessToken={accessToken} />}
-                  />
-                  <Route
-                    path="/TrackerHistory"
-                    element={<TrackerHistory accessToken={accessToken} />}
-                  />
+                  <Route path="/Home" element={<HomeScreen />} />
+                  <Route path="/Trackers" element={<TrackersScreen />} />
+                  <Route path="/Settings" element={<SettingsScreen />} />
+                  <Route path="/Profile" element={<Profile />} />
+                  <Route path="/Tracker" element={<Tracker />} />
+                  <Route path="/TrackerHistory" element={<TrackerHistory />} />
                   <Route
                     path="/TrackerHistoryChart"
-                    element={<TrackerHistoryChart accessToken={accessToken} />}
+                    element={<TrackerHistoryChart />}
                   />
+                  <Route path="/PublicProfile" element={<PublicProfile />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />} />

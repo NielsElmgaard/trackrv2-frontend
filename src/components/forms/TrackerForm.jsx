@@ -7,6 +7,7 @@ import "./TrackerForm.css";
 function TrackerForm() {
   const [trackerName, setTrackerName] = useState("");
   const [trackerDescription, setTrackerDescription] = useState("");
+  const [isPublic, setIsPublic] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -27,6 +28,7 @@ function TrackerForm() {
       await axiosInstance.post("/v1/trackers", {
         name: trackerName.trim(),
         description: trackerDescription.trim(),
+        isPublic: isPublic,
         fields: [],
       });
 
@@ -61,6 +63,16 @@ function TrackerForm() {
             value={trackerDescription ?? null}
             onChange={(e) => setTrackerDescription(e.target.value)}
             placeholder="Indtast beskrivelse"
+            disabled={isSubmitting}
+          />
+        </div>
+        <div className="custom-form-group" style={{ alignItems: "center" }}>
+          <label htmlFor="isPublic">Offentlig?</label>
+          <input
+            id="isPublic"
+            type="checkbox"
+            checked={!!isPublic}
+            onChange={(e) => setIsPublic(e.target.checked)}
             disabled={isSubmitting}
           />
         </div>

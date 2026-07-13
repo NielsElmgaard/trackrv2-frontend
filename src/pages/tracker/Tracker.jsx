@@ -77,6 +77,8 @@ function Tracker() {
       await updateTrackerMutation.mutateAsync({
         trackerId: activeTracker.id,
         name: activeTracker.name,
+        description: activeTracker.description,
+        isPublic:activeTracker.isPublic,
         fields: updatedFields,
       });
       setNewFieldLabel("");

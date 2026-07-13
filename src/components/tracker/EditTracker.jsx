@@ -11,6 +11,9 @@ function EditTracker({ currentTracker, setEditMode, setError, setInfo }) {
   const [updatedTrackerDescription, setUpdatedTrackerDescription] = useState(
     currentTracker?.description,
   );
+  const [updatedTrackerIsPublic, setUpdatedTrackerIsPublic] = useState(
+    currentTracker?.isPublic,
+  );
   const [localFields, setLocalFields] = useState(
     (currentTracker.fields || []).map((f) => ({
       id: f.id,
@@ -39,6 +42,7 @@ function EditTracker({ currentTracker, setEditMode, setError, setInfo }) {
         trackerId: currentTracker.id,
         name: updatedTrackerName || currentTracker.name,
         description: updatedTrackerDescription,
+        isPublic: updatedTrackerIsPublic,
         fields: localFields,
       });
       setInfo("Tracker blev opdateret succesfuldt!");
@@ -58,6 +62,8 @@ function EditTracker({ currentTracker, setEditMode, setError, setInfo }) {
         setUpdatedTrackerName={setUpdatedTrackerName}
         updatedTrackerDescription={updatedTrackerDescription}
         setUpdatedTrackerDescription={setUpdatedTrackerDescription}
+        updatedTrackerIsPublic={updatedTrackerIsPublic}
+        setUpdatedTrackerIsPublic={setUpdatedTrackerIsPublic}
         isSubmittingEdit={isSubmittingEdit}
         setEditMode={setEditMode}
         handleLocalFieldChange={handleLocalChange}

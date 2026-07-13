@@ -1,33 +1,34 @@
-import useFetchTrackers from "../../hooks/useFetchTrackers.js";
+import useFetchPublicTrackersForUser from "../../hooks/useFetchPublicTrackersForUser.js";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { axiosInstance } from "../../utils.js";
-import Tracker from "../tracker/Tracker.jsx";
 import useNavigate from "../../components/navigation/useNavigate.jsx";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import PopUp from "../../components/popup/PopUp.jsx";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { useLocation } from "react-router-dom";
 
-import "./trackers-screen.css";
-import useDeleteTracker from "../../hooks/useDeleteTracker.js";
-import TrackerHistoryChart from "../tracker-history-chart/TrackerHistoryChart.jsx";
+import "./PublicProfile.css";
 
-function TrackersScreen() {
+function PublicProfile() {
+  const location = useLocation();
+  const currentSearchUser = location.state?.selectedUser || null;
   const [search, setSearch] = useState("");
   const [goToPage, setGoToPage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const [currentTracker, setCurrentTracker] = useState(null);
-  const { isPending, data: trackerDetails, fetchError } = useFetchTrackers();
-  const deleteTracker = useDeleteTracker();
+  const {
+    isPending,
+    data: trackerDetails,
+    fetchError,
+  } = useFetchPublicTrackersForUser({ userId: currentSearchUser?.id });
   const queryClient = useQueryClient();
   const trackersList = Array.isArray(trackerDetails) ? trackerDetails : [];
   const trackersPerPage = trackersList.length; // TODO: Change to fitting number
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
-  const [isDeletingTracker, setIsDeletingTracker] = useState(false);
   const [trackerDescriptionId, setTrackerDescriptionId] = useState(null);
 
   const filteredTrackers = trackersList.filter((t) => {
@@ -63,21 +64,6 @@ function TrackersScreen() {
     }
   }, [currentPage, filteredTrackers, queryClient]);
 
-  async function handleDeleteTracker(trackerId) {
-    setError("");
-    setInfo("");
-    setIsDeletingTracker(true);
-
-    try {
-      await deleteTracker.mutateAsync(trackerId);
-      setInfo("Tracker slettet");
-    } catch (err) {
-      setError(err.response?.data?.detail || "Kunne ikke slette trackeren.");
-    } finally {
-      setIsDeletingTracker(false);
-    }
-  }
-
   if (isPending)
     return (
       <div className="loading-screen-container">
@@ -95,17 +81,7 @@ function TrackersScreen() {
   return (
     <>
       <div className="trackers-screen-container">
-        <h1>Trackere</h1>
-        <div className="tracker-create-container">
-          <button
-            disabled={isDeletingTracker}
-            onClick={() =>
-              navigate("/Tracker", { state: { currentTracker: null } })
-            }
-          >
-            <p>Tilføj tracker</p>
-          </button>
-        </div>
+        <h1>{currentSearchUser.username}'s Trackere</h1>
         <div className="search-bar">
           <input
             type="text"
@@ -120,16 +96,6 @@ function TrackersScreen() {
               <div key={tracker.id} className="tracker-item-card">
                 <div className="tracker-item-card-name">
                   <h3>{tracker.name}</h3>
-                </div>
-                <div className="delete-tracker-item-card">
-                  <button
-                    className={"tracker-name-item"}
-                    disabled={isDeletingTracker}
-                    onClick={() => handleDeleteTracker(tracker.id)}
-                    aria-label="Slet Tracker"
-                  >
-                    <BsFillTrash3Fill />
-                  </button>
                 </div>
                 {trackerDescriptionId !== tracker.id && (
                   <div className="description-tracker-item-card">
@@ -152,30 +118,7 @@ function TrackersScreen() {
                 </div>
                 <div className="tracker-list-button">
                   <button
-                    className={"tracker-name-item"}
-                    disabled={isDeletingTracker}
-                    onClick={() =>
-                      navigate("/Tracker", {
-                        state: { currentTracker: tracker },
-                      })
-                    }
-                  >
-                    <h3>Track</h3>
-                  </button>
-                  <button
-                    className={"tracker-history-item"}
-                    disabled={isDeletingTracker}
-                    onClick={() =>
-                      navigate("/TrackerHistory", {
-                        state: { currentTracker: tracker },
-                      })
-                    }
-                  >
-                    <h3>Historik</h3>
-                  </button>
-                  <button
                     className={"tracker-chart-item"}
-                    disabled={isDeletingTracker}
                     onClick={() =>
                       navigate("/TrackerHistoryChart", {
                         state: { currentTracker: tracker },
@@ -194,4 +137,4 @@ function TrackersScreen() {
   );
 }
 
-export default TrackersScreen;
+export default PublicProfile;

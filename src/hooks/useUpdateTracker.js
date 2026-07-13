@@ -5,10 +5,11 @@ function useUpdateTracker() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ trackerId, name, description, fields }) => {
+    mutationFn: async ({ trackerId, name, description,isPublic, fields }) => {
       const response = await axiosInstance.put(`/v1/trackers/${trackerId}`, {
         name: name,
         description: description ?? null,
+        isPublic: isPublic,
         fields: fields,
       });
       return response.data;

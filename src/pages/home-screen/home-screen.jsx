@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useFetchSearchUsers from "../../hooks/useFetchSearchUsers";
 import useFollowUser from "../../hooks/useFollowUser";
+import useNavigate from "../../components/navigation/useNavigate.jsx";
 import "./home-screen.css";
 function HomeScreen() {
   const username = JSON.parse(localStorage.getItem("username"));
@@ -8,7 +9,8 @@ function HomeScreen() {
   const { isPending, data: searchUsers, fetchError } = useFetchSearchUsers();
   const followUser = useFollowUser();
   const [isFollowingUser, setIsFollowingUser] = useState(false);
-
+  const [selectedUser, setSelectedUser] = useState("");
+  const navigate = useNavigate();
   const searchUsersList = Array.isArray(searchUsers) ? searchUsers : [];
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
@@ -61,13 +63,21 @@ function HomeScreen() {
       return filteredSearchUsers.map((searchUser) => (
         <div key={searchUser.id} className="search-user-item-card">
           <div className="search-user-item-card-info">
-            <h3>
-              {searchUser.username} ({searchUser.firstName}{" "}
-              {searchUser.middleName
-                ? searchUser?.middleName.substring(0, 1) + "."
-                : ""}{" "}
-              {searchUser.lastName})
-            </h3>
+            <button
+              onClick={() =>
+                navigate("/PublicProfile", {
+                  state: { selectedUser: searchUser },
+                })
+              }
+            >
+              <h3>
+                {searchUser.username} ({searchUser.firstName}{" "}
+                {searchUser.middleName
+                  ? searchUser?.middleName.substring(0, 1) + "."
+                  : ""}{" "}
+                {searchUser.lastName})
+              </h3>
+            </button>
           </div>
           <div className="follow-user-item-card">
             <button
