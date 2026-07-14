@@ -25,7 +25,36 @@
   opacity: 0.8;
 }
 
-.profile-container{
+.profile-container {
   display: flex;
   flex-direction: column;
+}
+
+.manage-follow-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.following-section,
+.follower-section {
+  display: flex;
+  align-items: center;
+}
+
+.follower-section button,
+.following-section button {
+  cursor: pointer;
+  background-color: var(--accent-bg);
+  border: none;
+  padding: 0.67rem;
+  border-radius: 0.28rem;
+}
+
+.follower-section button:hover,
+.following-section button:hover {
+  opacity: 0.8;
 }

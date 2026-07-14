@@ -1,10 +1,12 @@
 import useFollowUser from "../../hooks/useFollowUser";
 import { useState } from "react";
+import useNavigate from "../navigation/useNavigate.jsx";
 import "./Followers.css";
 
 function Followers({ followersDetails, mutualFollowers, setInfo, setError }) {
   const followUser = useFollowUser();
   const [isFollowingUser, setIsFollowingUser] = useState(false);
+  const navigate = useNavigate();
 
   async function handleFollowUser(followingId) {
     setError("");
@@ -42,7 +44,15 @@ function Followers({ followersDetails, mutualFollowers, setInfo, setError }) {
         return (
           <div key={follower.id} className="follower-item-card">
             <div className="follower-item-card-name">
-              <h3>{follower.username}</h3>
+              <button
+                onClick={() =>
+                  navigate("/PublicProfile", {
+                    state: { selectedUser: follower },
+                  })
+                }
+              >
+                <h3>{follower.username}</h3>
+              </button>
             </div>
             {isMutual ? (
               <span

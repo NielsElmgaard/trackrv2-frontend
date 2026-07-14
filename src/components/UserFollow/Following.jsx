@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import useUnfollowUser from "../../hooks/useUnfollowUser.js";
+import useNavigate from "../navigation/useNavigate.jsx";
+
 import "./Following.css";
 
 function Following({ followingDetails, mutualFollowers, setInfo, setError }) {
   const [username, setUsername] = useState("");
   const [isSubmittingUnFollow, setIsSubmittingUnFollow] = useState(false);
   const unFollowUser = useUnfollowUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (followingDetails) {
@@ -49,8 +52,17 @@ function Following({ followingDetails, mutualFollowers, setInfo, setError }) {
           {followingDetails.map((following) => (
             <div key={following.id} className="following-item-card">
               <div className="following-item-card-name">
-                <h3>{following.username}</h3>
+                <button
+                  onClick={() =>
+                    navigate("/PublicProfile", {
+                      state: { selectedUser: following },
+                    })
+                  }
+                >
+                  <h3>{following.username}</h3>
+                </button>
               </div>
+
               <div className="unfollow-item-card">
                 <button
                   className={"unfollow-name-item"}
