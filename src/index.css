@@ -14,6 +14,7 @@
   --social-bg: rgba(0, 217, 255, 0.06);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --neutral-gray: #808080;
 
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
@@ -51,6 +52,7 @@
     --social-bg: rgba(0, 255, 136, 0.08);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --neutral-gray: #808080;
   }
 
   #social .button-icon {

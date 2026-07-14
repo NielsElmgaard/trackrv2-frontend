@@ -107,3 +107,39 @@
 .description-tracker-item-card button:hover {
   opacity: 0.8;
 }
+
+#alert-dialog-title {
+  color: #b13333;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+#alert-dialog-description {
+  font-size: 1.2rem;
+  color: var(--black);
+}
+
+.dialog-action-button {
+  padding: 0.67rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 0.28rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.67rem;
+  transition: opacity 0.2s;
+}
+
+.dialog-action-button:hover {
+  opacity: 0.8;
+}
+
+#cancel-btn:hover {
+  background-color: var(--neutral-gray);
+}
+
+#confirm-btn:hover {
+  background-color:  #b13333;
+}

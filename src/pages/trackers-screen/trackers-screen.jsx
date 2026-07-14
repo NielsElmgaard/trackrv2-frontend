@@ -9,6 +9,11 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import PopUp from "../../components/popup/PopUp.jsx";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import "./trackers-screen.css";
 import useDeleteTracker from "../../hooks/useDeleteTracker.js";
@@ -29,6 +34,16 @@ function TrackersScreen() {
   const [info, setInfo] = useState("");
   const [isDeletingTracker, setIsDeletingTracker] = useState(false);
   const [trackerDescriptionId, setTrackerDescriptionId] = useState(null);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const filteredTrackers = trackersList.filter((t) => {
     if (search === "") {
@@ -92,6 +107,11 @@ function TrackersScreen() {
       </div>
     );
 
+  const handleDeletion = async (id) => {
+    await handleDeleteTracker(id);
+    handleClose();
+  };
+
   return (
     <>
       <div className="trackers-screen-container">
@@ -125,11 +145,45 @@ function TrackersScreen() {
                   <button
                     className={"tracker-name-item"}
                     disabled={isDeletingTracker}
-                    onClick={() => handleDeleteTracker(tracker.id)}
+                    onClick={handleClickOpen}
                     aria-label="Slet Tracker"
                   >
                     <BsFillTrash3Fill />
                   </button>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    role="alertdialog"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      Slet Tracker?
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        Du er ved at slette denne tracker. <b>Bekræft</b>{" "}
+                        venligst sletningen eller <b>annullér</b>.
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <button
+                        onClick={handleClose}
+                        autoFocus
+                        className="dialog-action-button"
+                        id="cancel-btn"
+                      >
+                        Annullér
+                      </button>
+                      <button
+                        onClick={() => handleDeletion(tracker.id)}
+                        className="dialog-action-button"
+                        id="confirm-btn"
+                      >
+                        Bekræft sletning
+                      </button>
+                    </DialogActions>
+                  </Dialog>
                 </div>
                 {trackerDescriptionId !== tracker.id && (
                   <div className="description-tracker-item-card">
