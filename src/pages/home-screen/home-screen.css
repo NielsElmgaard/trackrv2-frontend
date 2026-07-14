@@ -1,10 +1,17 @@
 .home-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 50vh;
 }
-.follow-user-item-card button{
+
+.follow-user-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.follow-user-item-card button {
   padding: 0.67rem;
   background-color: var(--accent);
   color: var(--bg);
@@ -13,15 +20,14 @@
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 0.67rem;
   transition: opacity 0.2s;
 }
 
-.follow-user-item-card button:hover{
- opacity: 0.8;
+.follow-user-item-card button:hover {
+  opacity: 0.8;
 }
 
-.search-user-container{
+.search-user-container {
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -29,6 +35,35 @@
   width: 50%;
 }
 
-.search-user-item-card-info h3{
-  color:var(--text-h);
+.search-user-item-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 0.01rem dashed var(--accent);
+}
+
+.search-user-item-card:last-child {
+  border-bottom: none;
+}
+
+.search-user-item-card-info {
+  display: flex;
+  align-items: center;
+}
+
+.search-user-item-card-info h3 {
+  color: var(--text-h);
+}
+
+.search-user-item-card-info button {
+  cursor: pointer;
+  background-color: var(--accent-bg);
+  border: none;
+  padding: 0.67rem;
+}
+
+.search-user-item-card-info button:hover {
+  opacity: 0.8;
 }

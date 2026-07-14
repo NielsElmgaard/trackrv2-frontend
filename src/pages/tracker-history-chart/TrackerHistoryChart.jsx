@@ -11,10 +11,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import useFetchTrackerEntries from "../../hooks/useFetchTrackerEntries.js";
+import useFetchTrackerEntriesForPublicTracker from "../../hooks/useFetchTrackerEntriesForPublicTracker.js";
 
 function TrackerHistoryChart() {
   const location = useLocation();
   const currentTracker = location.state?.currentTracker || null;
+  const currentSearchUser = location.state?.currentSearchUser || null;
+  const viewingPublicProfile = location.state?.viewingPublicProfile || false;
   const trackerId = currentTracker?.id;
 
   const [startDate, setStartDate] = useState(() => {
@@ -28,15 +31,26 @@ function TrackerHistoryChart() {
 
   const [fieldLabel, setFieldLabel] = useState("");
 
-  const { isPending, data: entries = [] } = useFetchTrackerEntries(
-    currentTracker?.id,
-    startDate,
-    endDate,
-  );
+  const { isPendingPrivate, data: privateEntries = [] } =
+    useFetchTrackerEntries(
+      !viewingPublicProfile ? currentTracker?.id : null,
+      startDate,
+      endDate,
+    );
+
+  const { isPendingPublic, data: publicEntries = [] } =
+    useFetchTrackerEntriesForPublicTracker(
+      viewingPublicProfile ? currentTracker?.id : null,
+      currentSearchUser?.id,
+    );
+
+  const trackerEntries = viewingPublicProfile
+    ? publicEntries || []
+    : privateEntries || [];
 
   const fieldLabels = [
     ...new Set(
-      entries.flatMap((entry) =>
+      trackerEntries.flatMap((entry) =>
         (entry.values || [])
           .filter((v) => v.fieldType === 1)
           .map((v) => v.fieldLabel),
@@ -57,15 +71,16 @@ function TrackerHistoryChart() {
       </div>
     );
   }
+  const isLoading = viewingPublicProfile ? isPendingPublic : isPendingPrivate;
 
-  if (isPending)
+  if (isLoading)
     return (
       <div className="loading-screen-container">
         <div className="loading"></div>
       </div>
     );
 
-  const valuesByDate = entries.reduce((acc, { values, createdAt }) => {
+  const valuesByDate = trackerEntries.reduce((acc, { values, createdAt }) => {
     const value = values?.find((v) => v.fieldLabel === fieldLabel);
     if (!value) return acc;
 

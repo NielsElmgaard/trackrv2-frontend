@@ -121,7 +121,11 @@ function PublicProfile() {
                     className={"tracker-chart-item"}
                     onClick={() =>
                       navigate("/TrackerHistoryChart", {
-                        state: { currentTracker: tracker },
+                        state: {
+                          viewingPublicProfile: true,
+                          currentTracker: tracker,
+                          currentSearchUser: currentSearchUser,
+                        },
                       })
                     }
                   >

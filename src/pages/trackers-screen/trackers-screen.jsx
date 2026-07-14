@@ -178,7 +178,10 @@ function TrackersScreen() {
                     disabled={isDeletingTracker}
                     onClick={() =>
                       navigate("/TrackerHistoryChart", {
-                        state: { currentTracker: tracker },
+                        state: {
+                          currentTracker: tracker,
+                          viewingPublicProfile: false,
+                        },
                       })
                     }
                   >

@@ -105,9 +105,11 @@ function HomeScreen() {
             disabled={isFollowingUser}
           />
         </div>
-        <div className="search-user-container">
-          {renderSearchUsersContent()}
-        </div>
+        {search && filteredSearchUsers.length > 0 && (
+          <div className="search-user-container">
+            {renderSearchUsersContent()}
+          </div>
+        )}
         <div>
           {info && <div className="info-message">{info}</div>}
           {error && <div className="error-message">{error}</div>}
