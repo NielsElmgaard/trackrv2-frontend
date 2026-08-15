@@ -110,6 +110,11 @@ function HomeScreen() {
             {renderSearchUsersContent()}
           </div>
         )}
+        <div className="my-trackers">
+          <button onClick={()=>navigate("/Trackers")}>
+            <span>Mine trackere</span>
+          </button>
+        </div>
         <div>
           {info && <div className="info-message">{info}</div>}
           {error && <div className="error-message">{error}</div>}

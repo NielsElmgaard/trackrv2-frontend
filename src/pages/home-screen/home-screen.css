@@ -67,3 +67,27 @@
 .search-user-item-card-info button:hover {
   opacity: 0.8;
 }
+
+.my-trackers {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.my-trackers button {
+  padding: 2rem;
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 0.28rem;
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  max-width: fit-content;
+  margin: 1rem auto;
+}
+
+.my-trackers button:hover {
+  opacity: 0.8;
+}
