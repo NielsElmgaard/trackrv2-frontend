@@ -30,7 +30,7 @@
 
 /*Info message*/
 .info-message {
-  color: #00ff88;
+  color: var(--accent);
   font-size: 0.85rem;
   text-align: center;
 }
