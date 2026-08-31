@@ -20,7 +20,7 @@
 .update-userinfo-group label {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-h);
 }
 
 .update-userinfo-group input {
@@ -31,9 +31,13 @@
   outline: none;
   transition: border-color 0.2s;
   background-color: var(--code-bg);
-  color: var(--text);
+  color: var(--black);
   margin-top: -0.67rem;
   margin-bottom: 0.67rem;
+}
+
+.update-userinfo-group input::placeholder {
+  color: var(--black);
 }
 
 .update-userinfo-group input:focus {
@@ -57,7 +61,7 @@
   opacity: 0.8;
 }
 
-.custom-form-group textarea{
+.custom-form-group textarea {
   width: 100%;
   min-height: 10rem;
 }

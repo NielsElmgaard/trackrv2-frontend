@@ -5,7 +5,7 @@ import { axiosInstance } from "../../utils.js";
 import Tracker from "../tracker/Tracker.jsx";
 import useNavigate from "../../components/navigation/useNavigate.jsx";
 import { BsFillTrash3Fill } from "react-icons/bs";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { AiFillInfoCircle  } from "react-icons/ai";
 import PopUp from "../../components/popup/PopUp.jsx";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -18,6 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import "./trackers-screen.css";
 import useDeleteTracker from "../../hooks/useDeleteTracker.js";
 import TrackerHistoryChart from "../tracker-history-chart/TrackerHistoryChart.jsx";
+import { color } from "chart.js/helpers";
 
 function TrackersScreen() {
   const [search, setSearch] = useState("");
@@ -187,8 +188,12 @@ function TrackersScreen() {
                 </div>
                 {trackerDescriptionId !== tracker.id && (
                   <div className="description-tracker-item-card">
-                    <button onClick={() => setTrackerDescriptionId(tracker.id)}>
-                      <AiOutlineInfoCircle size={22} />
+                    <button onClick={() => setTrackerDescriptionId(tracker.id)} >
+                      <AiFillInfoCircle 
+                        size={22}
+                        color="var(--bg)"
+                        style={{backgroundColor:"var(--accent)",borderRadius: '50%'}}
+                      />
                     </button>
                   </div>
                 )}

@@ -36,14 +36,15 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: black;
+  background-color: var(--bg);
+  border: 0.15rem solid var(--accent);
   padding: 1.5rem 1rem 1rem 1rem;
   width: 20rem;
   border-radius: 0.28rem;
 }
 
 .tracker-item-card-name h3 {
-  color: var(--white);
+  color: var(--accent);
   margin-top: 0.5rem;
   text-align: center;
   overflow-wrap: break-word;
@@ -51,7 +52,7 @@
 }
 
 .tracker-list-button h3 {
-  color: black;
+  color: var(--bg);
 }
 
 .tracker-list-button {
@@ -66,7 +67,7 @@
 .tracker-list-button button {
   cursor: pointer;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--accent);
 }
 
 .delete-tracker-item-card {
@@ -102,7 +103,9 @@
   border-radius: 0.2rem;
   border: none;
   transition: opacity 0.2s ease;
+  background: var(--accent);
 }
+
 
 .description-tracker-item-card button:hover {
   opacity: 0.8;
@@ -141,5 +144,5 @@
 }
 
 #confirm-btn:hover {
-  background-color:  #b13333;
+  background-color: #b13333;
 }
